@@ -5,7 +5,7 @@ simulate user keystrokes, but is particularly useful in testing environments.
 
 ## Installation
 
-```
+```sh
 # Install via npm to use with a web or node (e.g. with jsdom) project.
 $ npm install keysim
 # Install via bower to use with a web project.
