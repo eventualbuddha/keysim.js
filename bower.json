@@ -1,0 +1,29 @@
+{
+  "name": "keysim.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/eventualbuddha/keysim.js",
+  "authors": [
+    "Brian Donovan <me@brian-donovan.com>"
+  ],
+  "description": "Keyboard simulator for JavaScript.",
+  "main": "dist/keyboard.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "keyboard",
+    "event",
+    "dom",
+    "KeyboardEvent",
+    "simulate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test"
+  ]
+}
