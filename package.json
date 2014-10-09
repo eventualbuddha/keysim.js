@@ -1,0 +1,29 @@
+{
+  "name": "keysim",
+  "version": "1.0.0",
+  "description": "Keyboard simulator for JavaScript.",
+  "main": "dist/keyboard.js",
+  "jsnext:main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -R spec --recursive test"
+  },
+  "keywords": [
+    "keyboard",
+    "event",
+    "dom",
+    "KeyboardEvent",
+    "simulate"
+  ],
+  "author": "Brian Donovan",
+  "license": "MIT",
+  "devDependencies": {
+    "broccoli-es6-module-transpiler": "^0.2.3",
+    "broccoli-esnext": "^0.3.0",
+    "ember-cli": "0.1.1",
+    "jsdom": "1.0.1",
+    "mocha": "^1.21.4"
+  }
+}
