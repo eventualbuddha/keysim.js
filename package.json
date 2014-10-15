@@ -7,6 +7,10 @@
   "directories": {
     "test": "test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eventualbuddha/keysim.js"
+  },
   "scripts": {
     "test": "mocha -R spec --recursive test"
   },
