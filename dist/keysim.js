@@ -400,6 +400,16 @@
       45:  new index$$Keystroke(0,     189), // -
       46:  new index$$Keystroke(0,     190), // .
       47:  new index$$Keystroke(0,     191), // /
+      48:  new index$$Keystroke(0,     48),  // 0
+      49:  new index$$Keystroke(0,     49),  // 1
+      50:  new index$$Keystroke(0,     50),  // 2
+      51:  new index$$Keystroke(0,     51),  // 3
+      52:  new index$$Keystroke(0,     52),  // 4
+      53:  new index$$Keystroke(0,     53),  // 5
+      54:  new index$$Keystroke(0,     54),  // 6
+      55:  new index$$Keystroke(0,     55),  // 7
+      56:  new index$$Keystroke(0,     56),  // 8
+      57:  new index$$Keystroke(0,     57),  // 9
       58:  new index$$Keystroke(index$$SHIFT, 186), // :
       59:  new index$$Keystroke(0,     186), // ;
       60:  new index$$Keystroke(index$$SHIFT, 188), // <
