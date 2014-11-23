@@ -93,7 +93,12 @@
 
           var event;
 
-          event = document.createEvent('UIEvents');
+          try {
+            event = new Event(type);
+          }
+          catch(e) {
+            event = document.createEvent('UIEvents');
+          }
 
           event.initEvent(type, true, true);
 
