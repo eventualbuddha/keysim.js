@@ -6,7 +6,7 @@
     "Brian Donovan <me@brian-donovan.com>"
   ],
   "description": "Keyboard simulator for JavaScript.",
-  "main": "dist/keyboard.js",
+  "main": "dist/keysim.js",
   "moduleType": [
     "amd",
     "es6",
