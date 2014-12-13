@@ -93,9 +93,10 @@
 
           var event;
 
-          if (Event) {
+          try {
             event = new Event(type);
-          } else {
+          }
+          catch(e) {
             event = document.createEvent('UIEvents');
           }
 
