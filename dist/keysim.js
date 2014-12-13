@@ -95,8 +95,7 @@
 
           try {
             event = new Event(type);
-          }
-          catch(e) {
+          } catch(e) {
             event = document.createEvent('UIEvents');
           }
 
