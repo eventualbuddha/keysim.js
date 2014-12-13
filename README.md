@@ -103,3 +103,7 @@ keyup    keyCode=49  (1)   which=49  (1)   charCode=0
 keyup    keyCode=16        which=16        charCode=0        
 keydown  keyCode=91  ([)   which=91  ([)   charCode=0        
 ```
+
+## Building
+
+After ensuring the dependencies are installed, run `./node_modules/.bin/ember build`.
