@@ -19,44 +19,36 @@
         this.keyCode = keyCode;
       }
 
-      index$$$__Object$defineProperty(Keystroke, "CTRL", {
-        get: function() {
-          return index$$CTRL;
-        },
-
-        enumerable: true,
-        configurable: true
-      });
-
-      index$$$__Object$defineProperty(Keystroke, "META", {
-        get: function() {
-          return index$$META;
-        },
-
-        enumerable: true,
-        configurable: true
-      });
-
-      index$$$__Object$defineProperty(Keystroke, "ALT", {
-        get: function() {
-          return index$$ALT;
-        },
-
-        enumerable: true,
-        configurable: true
-      });
-
-      index$$$__Object$defineProperty(Keystroke, "SHIFT", {
-        get: function() {
-          return index$$SHIFT;
-        },
-
-        enumerable: true,
-        configurable: true
-      });
-
       return Keystroke;
     }();
+
+    /**
+     * Gets the bitmask value for the "control" modifier.
+     *
+     * @type {number}
+     */
+    index$$Keystroke.CTRL = index$$CTRL;
+
+    /**
+     * Gets the bitmask value for the "meta" modifier.
+     *
+     * @return {number}
+     */
+    index$$Keystroke.META = index$$META;
+
+    /**
+     * Gets the bitmask value for the "alt" modifier.
+     *
+     * @return {number}
+     */
+    index$$Keystroke.ALT = index$$ALT;
+
+    /**
+     * Gets the bitmask value for the "shift" modifier.
+     *
+     * @return {number}
+     */
+    index$$Keystroke.SHIFT = index$$SHIFT;
 
     var index$$Keyboard = function() {
       "use strict";
@@ -368,18 +360,6 @@
         writable: true
       });
 
-      index$$$__Object$defineProperty(Keyboard, "US_ENGLISH", {
-        get: function() {
-          return new Keyboard(
-            index$$US_ENGLISH_CHARCODE_KEYCODE_MAP,
-            index$$US_ENGLISH_ACTION_KEYCODE_MAP
-          );
-        },
-
-        enumerable: true,
-        configurable: true
-      });
-
       return Keyboard;
     }();
 
@@ -513,6 +493,16 @@
       F11:     122,
       F12:     123
     };
+
+    /**
+     * Gets a keyboard instance configured as a U.S. English keyboard would be.
+     *
+     * @return {Keyboard}
+     */
+    index$$Keyboard.US_ENGLISH = new index$$Keyboard(
+      index$$US_ENGLISH_CHARCODE_KEYCODE_MAP,
+      index$$US_ENGLISH_ACTION_KEYCODE_MAP
+    );
 
     if (typeof module !== 'undefined' && module.exports) {
       exports.Keyboard = index$$Keyboard;
