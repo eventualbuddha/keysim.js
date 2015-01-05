@@ -3,7 +3,7 @@
   "version": "1.1.1",
   "description": "Keyboard simulator for JavaScript.",
   "main": "dist/keysim.js",
-  "jsnext:main": "lib/index.js",
+  "jsnext:main": "lib/keysim.js",
   "directories": {
     "test": "test"
   },
@@ -12,11 +12,12 @@
     "url": "https://github.com/eventualbuddha/keysim.js"
   },
   "scripts": {
+    "build": "gobble build dist -f",
     "test": "mocha -R spec --recursive test"
   },
   "files": [
     "dist/keysim.js",
-    "lib/index.js"
+    "lib/keysim.js"
   ],
   "keywords": [
     "keyboard",
@@ -28,10 +29,10 @@
   "author": "Brian Donovan",
   "license": "MIT",
   "devDependencies": {
-    "broccoli-es6-module-transpiler": "^0.2.3",
-    "broccoli-esnext": "^0.3.0",
-    "ember-cli": "0.1.1",
-    "jsdom": "1.0.1",
-    "mocha": "^1.21.4"
+    "6to5": "^2.5.0",
+    "esperanto": "^0.5.7",
+    "gobble": "^0.7.1",
+    "jsdom": "2.0.0",
+    "mocha": "^2.1.0"
   }
 }
