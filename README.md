@@ -3,6 +3,8 @@
 Simulate typing into DOM elements. This can be used anywhere you need to
 simulate user keystrokes, but is particularly useful in testing environments.
 
+[![build status](https://travis-ci.org/eventualbuddha/keysim.js.svg)](https://travis-ci.org/eventualbuddha/keysim.js)
+
 ## Installation
 
 ```sh
