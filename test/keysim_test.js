@@ -1,3 +1,8 @@
+if (!Function.prototype.bind) {
+  // Work around phantomjs not having Function#bind.
+  Function.prototype.bind = require('function-bind');
+}
+
 var assert = require('assert');
 var Keyboard = require('../dist/keysim').Keyboard;
 var Keystroke = require('../dist/keysim').Keystroke;

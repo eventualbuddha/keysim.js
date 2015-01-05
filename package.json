@@ -31,8 +31,22 @@
   "devDependencies": {
     "6to5": "^2.5.0",
     "esperanto": "^0.5.7",
+    "function-bind": "^1.0.2",
     "gobble": "^0.7.1",
     "jsdom": "2.0.0",
     "mocha": "^2.1.0"
+  },
+  "testling": {
+    "files": "test/*.js",
+    "browsers": [
+      "ie/7..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "iphone/latest",
+      "ipad/latest",
+      "android-browser/latest"
+    ],
+    "harness": "mocha-bdd"
   }
 }
