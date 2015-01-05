@@ -115,8 +115,8 @@ Ensure that the keysim dependencies are installed (`npm install`) and that the
 
 ## Testing
 
-To run the tests in Chrome, run `npm test`. To run the tests in node, run
-`npm run test:node`.
+To run the tests in Chrome, run `npm run test:browser`. To run the tests in node,
+run `npm run test:node`. Running `npm test` will run both.
 
 ## Contributing
 
