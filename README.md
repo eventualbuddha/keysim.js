@@ -106,4 +106,17 @@ keydown  keyCode=91  ([)   which=91  ([)   charCode=0
 
 ## Building
 
-After ensuring the dependencies are installed, run `./node_modules/.bin/ember build`.
+Ensure that the keysim dependencies are installed (`npm install`) and that the
+[`gobble`](https://github.com/gobblejs/gobble) build tool is installed
+(`npm install -g gobble-cli`). Then run `npm run build` to re-create
+`dist/keysim.js`.
+
+## Testing
+
+To run the tests in Chrome, run `npm test`. To run the tests in node, run
+`npm run test:node`.
+
+## Contributing
+
+Fork the project, create a branch, and fix your bug or add your feature on that
+branch. Be sure to add tests for your bug fix or feature.
