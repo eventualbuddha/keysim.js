@@ -53,6 +53,16 @@ module.exports = function(config) {
       'test/**/*.js': ['browserify']
     },
 
+    browserify: {
+        configure: function(bundle) {
+            bundle.on('prebundle', function() {
+                // Exclude jsdom because it makes IE =< 8 go kaboom.
+                // And browsers have real DOM, right?
+                bundle.exclude('jsdom');
+            });
+        }
+    },
+
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
