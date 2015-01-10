@@ -32,6 +32,7 @@
   "license": "MIT",
   "devDependencies": {
     "6to5": "^2.5.0",
+    "detect-node": "^2.0.3",
     "esperanto": "^0.5.7",
     "function-bind": "^1.0.2",
     "gobble": "^0.7.1",

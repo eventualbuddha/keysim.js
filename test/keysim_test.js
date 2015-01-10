@@ -6,7 +6,11 @@ if (!Function.prototype.bind) {
 var assert = require('assert');
 var Keyboard = require('../dist/keysim').Keyboard;
 var Keystroke = require('../dist/keysim').Keystroke;
-var jsdom = require('jsdom');
+
+var isInNode = require('detect-node');
+
+// jsdom is required when running in node. Browsers have real DOM.
+var jsdom = isInNode ? require('jsdom') : null;
 
 function captureEvents(element, body) {
   var events = [];
@@ -26,6 +30,13 @@ function captureEventSummaries(element, body) {
   return captureEvents(element, body).map(function(e) {
     return [e.type, e.charCode, e.keyCode];
   });
+}
+
+function getDocument() {
+  if (isInNode) {
+      return jsdom.jsdom();
+  }
+  return window.document;
 }
 
 describe('Keyboard', function() {
@@ -54,7 +65,7 @@ describe('Keyboard', function() {
     var element;
 
     beforeEach(function() {
-      var document = jsdom.jsdom();
+      document = getDocument();
       element = document.body;
     });
 
@@ -158,7 +169,7 @@ describe('Keyboard', function() {
     var element;
 
     beforeEach(function() {
-      document = jsdom.jsdom();
+      document = getDocument();
       element = document.body;
     });
 
@@ -277,7 +288,7 @@ describe('Keyboard', function() {
     var input;
 
     beforeEach(function() {
-      document = jsdom.jsdom();
+      document = getDocument();
       input = document.createElement('input');
     });
 
@@ -343,7 +354,7 @@ describe('Keyboard', function() {
     var input;
 
     beforeEach(function() {
-      document = jsdom.jsdom();
+      document = getDocument();
       input = document.createElement('input');
     });
 
