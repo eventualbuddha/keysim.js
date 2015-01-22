@@ -65,8 +65,8 @@ describe('Keyboard', function() {
     var element;
 
     beforeEach(function() {
-      document = getDocument();
-      element = document.body;
+      doc = getDocument();
+      element = doc.body;
     });
 
     ['keydown', 'keyup'].forEach(function(type) {
@@ -165,12 +165,12 @@ describe('Keyboard', function() {
   });
 
   describe('#dispatchEventsForKeystroke', function() {
-    var document;
+    var doc;
     var element;
 
     beforeEach(function() {
-      document = getDocument();
-      element = document.body;
+      doc = getDocument();
+      element = doc.body;
     });
 
     context('when there are no modifier keys involved in the keystroke', function() {
@@ -178,7 +178,7 @@ describe('Keyboard', function() {
         var input;
 
         beforeEach(function() {
-          input = document.createElement('input');
+          input = doc.createElement('input');
         });
 
         it('dispatches keydown, keypress, textInput, and keyup', function() {
@@ -199,7 +199,7 @@ describe('Keyboard', function() {
         var input;
 
         beforeEach(function() {
-          input = document.createElement('input');
+          input = doc.createElement('input');
         });
 
         it('dispatches keydown and keyup', function() {
@@ -232,7 +232,7 @@ describe('Keyboard', function() {
       var input;
 
       beforeEach(function() {
-        input = document.createElement('input');
+        input = doc.createElement('input');
       });
 
       it('adds the modifiers correctly', function() {
@@ -284,12 +284,12 @@ describe('Keyboard', function() {
   });
 
   describe('#dispatchEventsForInput', function() {
-    var document;
+    var doc;
     var input;
 
     beforeEach(function() {
-      document = getDocument();
-      input = document.createElement('input');
+      doc = getDocument();
+      input = doc.createElement('input');
     });
 
     it('dispatches events for each character', function() {
@@ -350,12 +350,12 @@ describe('Keyboard', function() {
   });
 
   describe('#dispatchEventsForAction', function() {
-    var document;
+    var doc;
     var input;
 
     beforeEach(function() {
-      document = getDocument();
-      input = document.createElement('input');
+      doc = getDocument();
+      input = doc.createElement('input');
     });
 
     it('dispatches events for each key', function() {
