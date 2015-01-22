@@ -22,7 +22,7 @@ module.exports = function(config) {
     }
   };
 
-  const useSauceLabs = !!process.env.SAUCE;
+  const useSauceLabs = !!process.env.SAUCE_USERNAME;
 
   config.set({
 
