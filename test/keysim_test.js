@@ -6,6 +6,7 @@ if (!Function.prototype.bind) {
 var assert = require('assert');
 var Keyboard = require('../dist/keysim').Keyboard;
 var Keystroke = require('../dist/keysim').Keystroke;
+var on = require('dom-events').on;
 
 var isInNode = require('detect-node');
 
@@ -20,7 +21,7 @@ function captureEvents(element, body) {
     }
   };
   ['keydown', 'keypress', 'keyup', 'textInput'].forEach(function(type) {
-    element.addEventListener(type, handler);
+    on(element, type, handler);
   });
   body();
   return events;
