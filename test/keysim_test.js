@@ -59,6 +59,7 @@ describe('Keyboard', function() {
   });
 
   describe('#createEventFromKeystroke', function() {
+    var document;
     var element;
 
     beforeEach(function() {
