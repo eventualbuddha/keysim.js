@@ -54,6 +54,7 @@ module.exports = function(config) {
     },
 
     browserify: {
+        debug: true,
         configure: function(bundle) {
             bundle.on('prebundle', function() {
                 // Exclude jsdom because it makes IE =< 8 go kaboom.
