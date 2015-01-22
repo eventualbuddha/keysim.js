@@ -1,8 +1,3 @@
-if (!Function.prototype.bind) {
-  // Work around phantomjs not having Function#bind.
-  Function.prototype.bind = require('function-bind');
-}
-
 require("es5-shim");
 
 var assert = require('assert');
