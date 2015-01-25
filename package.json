@@ -46,6 +46,6 @@
   },
   "dependencies": {
     "get-document": "^0.1.1",
-    "get-window": "0.0.2"
+    "get-window": "git://github.com/mightyiam/get-window#parentWindow"
   }
 }
