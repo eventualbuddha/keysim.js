@@ -8,6 +8,7 @@ var isInNode = require('detect-node');
 
 // jsdom is required when running in node. Browsers have real DOM.
 var jsdom = isInNode ? require('jsdom') : null;
+var addEventHandler = require('add-event-handler');
 
 function captureEvents(element, body) {
   var events = [];
@@ -17,7 +18,7 @@ function captureEvents(element, body) {
     }
   };
   ['keydown', 'keypress', 'keyup', 'textInput'].forEach(function(type) {
-    element.addEventListener(type, handler);
+      addEventHandler(element, type, handler);
   });
   body();
   return events;
