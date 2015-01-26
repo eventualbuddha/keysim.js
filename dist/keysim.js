@@ -15,113 +15,6 @@
 })(typeof window !== "undefined" ? window : this, function (exports) {
   "use strict";
 
-  /**
-   * Module exports.
-   */
-
-
-
-  // defined by w3c
-  var DOCUMENT_NODE = 9;
-
-  /**
-   * Returns `true` if `w` is a Document object, or `false` otherwise.
-   *
-   * @param {?} d - Document object, maybe
-   * @return {Boolean}
-   * @private
-   */
-
-  function isDocument(d) {
-    return d && d.nodeType === DOCUMENT_NODE;
-  }
-
-  /**
-   * Returns the `document` object associated with the given `node`, which may be
-   * a DOM element, the Window object, a Selection, a Range. Basically any DOM
-   * object that references the Document in some way, this function will find it.
-   *
-   * @param {Mixed} node - DOM node, selection, or range in which to find the `document` object
-   * @return {Document} the `document` object associated with `node`
-   * @public
-   */
-
-  function getDocument(node) {
-    if (isDocument(node)) {
-      return node;
-    } else if (isDocument(node.ownerDocument)) {
-      return node.ownerDocument;
-    } else if (isDocument(node.document)) {
-      return node.document;
-    } else if (node.parentNode) {
-      return getDocument(node.parentNode);
-
-      // Range support
-    } else if (node.commonAncestorContainer) {
-      return getDocument(node.commonAncestorContainer);
-    } else if (node.startContainer) {
-      return getDocument(node.startContainer);
-
-      // Selection support
-    } else if (node.anchorNode) {
-      return getDocument(node.anchorNode);
-    }
-  }
-
-  /**
-   * Module dependencies.
-   */
-
-
-
-  // old-IE fallback logic: http://stackoverflow.com/a/10260692
-  var needsIEFallback = !!document.attachEvent && window !== document.parentWindow;
-
-  /**
-   * Returns `true` if `w` is a Window object, or `false` otherwise.
-   *
-   * @param {Mixed} w - Window object, maybe
-   * @return {Boolean}
-   * @private
-   */
-
-  function isWindow(w) {
-    return w && w.window === w;
-  }
-
-  /**
-   * Returns the `window` object associated with the given `node`, which may be
-   * a DOM element, the Window object, a Selection, a Range. Basically any DOM
-   * object that references the Window in some way, this function will find it.
-   *
-   * @param {Mixed} node - DOM node, selection, or range in which to find the `window` object
-   * @return {Window} the `window` object associated with `node`
-   * @public
-   */
-
-  function getWindow(node) {
-    if (isWindow(node)) {
-      return node;
-    }
-
-    var doc = getDocument(node);
-
-    if (needsIEFallback) {
-      // In IE 6-8, only the variable 'window' can be used to connect events (others
-      // may be only copies).
-      doc.parentWindow.execScript("document._parentWindow = window;", "Javascript");
-      var win = doc._parentWindow;
-      // to prevent memory leak, unset it after use
-      // another possibility is to add an onUnload handler,
-      // (which seems overkill to @liucougar)
-      doc._parentWindow = null;
-      return win;
-    } else {
-      // standards-compliant and newer IE
-      return doc.defaultView || doc.parentWindow;
-    }
-  }
-
   /* jshint esnext:true, undef:true, unused:true */
 
   var CTRL = 1 << 0;
@@ -218,8 +111,8 @@
    * @return {Event}
    */
   Keyboard.prototype.createEventFromKeystroke = function (type, keystroke, target) {
-    var window = getWindow(target);
-    var document = getDocument(target);
+    var document = target.ownerDocument;
+    var window = document.defaultView;
     var Event = window.Event;
 
     var event;
