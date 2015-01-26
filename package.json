@@ -45,7 +45,7 @@
     "mocha": "^2.1.0"
   },
   "dependencies": {
-    "get-document": "^0.1.1",
-    "get-window": "git://github.com/mightyiam/get-window#parentWindow"
+    "get-document": "^1.0.0",
+    "get-window": "^1.0.0"
   }
 }
