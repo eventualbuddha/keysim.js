@@ -23,6 +23,7 @@ module.exports = function(config) {
   };
 
   const useSauceLabs = !!process.env.SAUCE_USERNAME;
+  const isCI = !!process.env.CI;
 
   config.set({
 
@@ -68,7 +69,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'saucelabs'],
+    reporters: useSauceLabs ? ['progress', 'saucelabs'] : ['progress'],
 
 
     // web server port
@@ -90,7 +91,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: useSauceLabs ? Object.keys(customLaunchers) : ['Chrome'],
+    browsers: useSauceLabs ? Object.keys(customLaunchers) : [isCI ? 'Firefox' : 'Chrome'],
     customLaunchers: useSauceLabs ? customLaunchers : undefined,
 
     // Continuous Integration mode
