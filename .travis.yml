@@ -5,3 +5,6 @@ env:
   global:
   - secure: Ob5716pWm62PohoTeO/mWhzgQBBn1AV5EXy+I4YGfWUJ/jjv6A56YqYisaDV7xBlN+hxq2sWu2iBqZbtCT2KmLdGp4e2BCWsDuwrxRqKuntMrVhRXK9Uc2YyWgCfZFeG5MEizFnL1TUaAvyAEoUr5qiYWcOmPUVP4bdAgSgm5xg=
   - secure: JdSqNUYrvar6Eq/s+fNtCgjal78lCrVv9BhU51lD2bXh7PFqWTSRoCJ0O5okahHEizDWvh0dQ+FyKd6XJhbDpoy0xLWLEPzPeN6tNq6yi5amB1ONn07H8G7mA1PZ6EAad99iAdcyyCwNqEoXyw4+e0loI6V6V6R0RNC2J0uUfUs=
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
