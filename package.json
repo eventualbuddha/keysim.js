@@ -48,6 +48,6 @@
   },
   "dependencies": {
     "get-document": "^1.0.0",
-    "get-window": "^1.0.0"
+    "get-window": "^1.1.1"
   }
 }
