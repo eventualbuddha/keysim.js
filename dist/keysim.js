@@ -1,18 +1,6 @@
 (function (global, factory) {
-  "use strict";
-
-  if (typeof define === "function" && define.amd) {
-    // export as AMD
-    define(["exports"], factory);
-  } else if (typeof module !== "undefined" && module.exports && typeof require === "function") {
-    // node/browserify
-    factory(exports);
-  } else {
-    // browser global
-    global.Keysim = {};
-    factory(global.Keysim);
-  }
-})(typeof window !== "undefined" ? window : this, function (exports) {
+  typeof define === "function" && define.amd ? define(["exports"], factory) : typeof exports === "object" ? factory(exports) : (global.Keysim = {}, factory(global.Keysim));
+})(this, function (exports) {
   "use strict";
 
   /* jshint esnext:true, undef:true, unused:true */
@@ -111,8 +99,10 @@
    * @return {Event}
    */
   Keyboard.prototype.createEventFromKeystroke = function (type, keystroke, target) {
-    var document = target.ownerDocument;
-    var window = document.defaultView;
+    var getWindow = require("get-window");
+    var getDocument = require("get-document");
+    var window = getWindow(target);
+    var document = getDocument(target);
     var Event = window.Event;
 
     var event;
@@ -167,7 +157,8 @@
    */
   Keyboard.prototype.dispatchEventsForInput = function (input, target) {
     var currentModifierState = 0;
-    for (var i = 0, length = input.length; i < length; i++) {
+    for (var i = 0,
+        length = input.length; i < length; i++) {
       var keystroke = this.keystrokeForCharCode(input.charCodeAt(i));
       this.dispatchModifierStateTransition(target, currentModifierState, keystroke.modifiers);
       this.dispatchEventsForKeystroke(keystroke, target, false);
