@@ -4,8 +4,6 @@
   (global.Keysim = {}, factory(global.Keysim))
 }(this, function (exports) { 'use strict';
 
-  exports.Keystroke = Keystroke;
-
   var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
   /* jshint esnext:true, undef:true, unused:true */
@@ -20,49 +18,29 @@
    *
    * @class Keystroke
    */
-  var Keystroke =
-  /**
-   * @param {number} modifiers A bitmask formed by CTRL, META, ALT, and SHIFT.
-   * @param {number} keyCode
-   */
-  function Keystroke(modifiers, keyCode) {
-    _classCallCheck(this, Keystroke);
+  var Keystroke = (function () {
+    /**
+     * @param {number} modifiers A bitmask formed by CTRL, META, ALT, and SHIFT.
+     * @param {number} keyCode
+     */
 
-    this.modifiers = modifiers;
-    this.ctrlKey = !!(modifiers & CTRL);
-    this.metaKey = !!(modifiers & META);
-    this.altKey = !!(modifiers & ALT);
-    this.shiftKey = !!(modifiers & SHIFT);
-    this.keyCode = keyCode;
-  };
+    function Keystroke(modifiers, keyCode) {
+      _classCallCheck(this, Keystroke);
 
-  /**
-   * Gets the bitmask value for the "control" modifier.
-   *
-   * @type {number}
-   */
-  Keystroke.CTRL = CTRL;
+      this.modifiers = modifiers;
+      this.ctrlKey = !!(modifiers & CTRL);
+      this.metaKey = !!(modifiers & META);
+      this.altKey = !!(modifiers & ALT);
+      this.shiftKey = !!(modifiers & SHIFT);
+      this.keyCode = keyCode;
+    }
 
-  /**
-   * Gets the bitmask value for the "meta" modifier.
-   *
-   * @return {number}
-   */
-  Keystroke.META = META;
-
-  /**
-   * Gets the bitmask value for the "alt" modifier.
-   *
-   * @return {number}
-   */
-  Keystroke.ALT = ALT;
-
-  /**
-   * Gets the bitmask value for the "shift" modifier.
-   *
-   * @return {number}
-   */
-  Keystroke.SHIFT = SHIFT;
+    Keystroke.CTRL = CTRL;
+    Keystroke.META = META;
+    Keystroke.ALT = ALT;
+    Keystroke.SHIFT = SHIFT;
+    return Keystroke;
+  })();
 
   /**
    * Simulates a keyboard with a particular key-to-character and key-to-action
@@ -115,7 +93,7 @@
       var window = document.defaultView;
       var Event = window.Event;
 
-      var event;
+      var event = undefined;
 
       try {
         event = new Event(type);
@@ -167,7 +145,7 @@
 
     Keyboard.prototype.dispatchEventsForInput = function dispatchEventsForInput(input, target) {
       var currentModifierState = 0;
-      for (var i = 0, length = input.length; i < length; i++) {
+      for (var i = 0, _length = input.length; i < _length; i++) {
         var keystroke = this.keystrokeForCharCode(input.charCodeAt(i));
         this.dispatchModifierStateTransition(target, currentModifierState, keystroke.modifiers);
         this.dispatchEventsForKeystroke(keystroke, target, false);
@@ -302,7 +280,7 @@
       }
 
       if (currentModifierState !== toModifierState) {
-        throw new Error("internal error, expected modifier state: " + toModifierState + ", got: " + currentModifierState);
+        throw new Error("internal error, expected modifier state: " + toModifierState + (", got: " + currentModifierState));
       }
     };
 
@@ -524,6 +502,31 @@
    */
   Keyboard.US_ENGLISH = new Keyboard(US_ENGLISH_CHARCODE_KEYCODE_MAP, US_ENGLISH_ACTION_KEYCODE_MAP);
 
+  /**
+   * Gets the bitmask value for the "control" modifier.
+   *
+   * @type {number}
+   */
+
+  /**
+   * Gets the bitmask value for the "meta" modifier.
+   *
+   * @return {number}
+   */
+
+  /**
+   * Gets the bitmask value for the "alt" modifier.
+   *
+   * @return {number}
+   */
+
+  /**
+   * Gets the bitmask value for the "shift" modifier.
+   *
+   * @return {number}
+   */
+
+  exports.Keystroke = Keystroke;
   exports.Keyboard = Keyboard;
 
 }));

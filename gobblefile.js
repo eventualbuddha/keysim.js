@@ -20,5 +20,10 @@ function createUMDBundle(input) {
 }
 
 function convertToES5(code) {
-  return babel.transform(code, { loose: true, blacklist: ['es6.modules', 'useStrict'] });
+  return babel.transform(
+    code, {
+      loose: true,
+      playground: true,
+      blacklist: ['es6.modules', 'useStrict']
+    });
 }
