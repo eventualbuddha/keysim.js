@@ -1,11 +1,11 @@
 const gobble = require('gobble');
 const esperanto = require('esperanto');
-const to5 = require('6to5');
+const babel = require('babel');
 
 module.exports = gobble('lib').transform(function(input) {
-  const umd = createUMDBundle(input);
-  const es5 = convertToES5(umd.code).code;
-  return stripTopLevelUseStrictDirective(es5);
+  const es5 = convertToES5(input).code;
+  const umd = createUMDBundle(es5);
+  return stripTopLevelUseStrictDirective(umd.code);
 });
 
 function stripTopLevelUseStrictDirective(code) {
@@ -20,5 +20,5 @@ function createUMDBundle(input) {
 }
 
 function convertToES5(code) {
-  return to5.transform(code);
+  return babel.transform(code, { loose: true, blacklist: ['es6.modules', 'useStrict'] });
 }
