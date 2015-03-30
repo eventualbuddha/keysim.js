@@ -426,7 +426,8 @@ export class Keyboard {
         return true;
 
       default:
-        return (target.designMode || target.isContentEditable);
+        if (target.designMode || target.isContentEditable) {return true}
+        return false;
     }
   }
 }
