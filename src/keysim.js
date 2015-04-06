@@ -426,7 +426,9 @@ export class Keyboard {
         return true;
 
       default:
-        if (target.designMode.toLowerCase === 'on' || target.isContentEditable) {return true}
+        if (target.designMode.toLowerCase === 'on' || target.isContentEditable) {
+          return true
+        }
         return false;
     }
   }
