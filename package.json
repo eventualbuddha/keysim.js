@@ -37,6 +37,7 @@
     "es5-shim": "^4.0.5",
     "esperanto": "^0.5.7",
     "gobble": "^0.7.1",
+    "gobble-cli": "^0.4.2",
     "jsdom": "2.0.0",
     "karma": "^0.12.31",
     "karma-browserify": "^2.0.0",
