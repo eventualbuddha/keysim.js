@@ -192,6 +192,17 @@ describe('Keyboard', function() {
             ['keyup', 0, 97]
           ]);
         });
+
+        it('dispatches only keydown and keyup when passed explicitly', function() {
+          // Simulate typing 'a'.
+          assert.deepEqual(captureEventSummaries(input, function() {
+            var keyboard = new Keyboard({ 97: a }, {});
+            keyboard.dispatchEventsForKeystroke(a, input, true, { keydown: true, keyup: true });
+          }), [
+            ['keydown', 0, 97],
+            ['keyup', 0, 97]
+          ]);
+        });
       });
 
       context('when the keystroke will not input a character', function() {
