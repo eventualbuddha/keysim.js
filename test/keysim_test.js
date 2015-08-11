@@ -197,7 +197,7 @@ describe('Keyboard', function() {
           // Simulate typing 'a'.
           assert.deepEqual(captureEventSummaries(input, function() {
             var keyboard = new Keyboard({ 97: a }, {});
-            keyboard.dispatchEventsForKeystroke(a, input, true, { keydown: true, keyup: true });
+            keyboard.dispatchEventsForKeystroke(a, input, true, Keyboard.getKeyEventMask({ keyDown: true, keyUp: true }));
           }), [
             ['keydown', 0, 97],
             ['keyup', 0, 97]
