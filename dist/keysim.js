@@ -206,25 +206,6 @@
     };
 
     /**
-     * Returns the BitMask for a given set of events
-     *
-     * @param {object=} events
-     * @returns {number}
-     */
-
-    Keyboard.getKeyEventMask = function getKeyEventMask() {
-      var events = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-      var mask = 0;
-      if (events.keyDown) mask |= KeyEvents.DOWN;
-      if (events.keyPress) mask |= KeyEvents.PRESS;
-      if (events.keyUp) mask |= KeyEvents.UP;
-      if (events.textInput) mask |= KeyEvents.INPUT;
-
-      return mask;
-    };
-
-    /**
      * Fires the correct sequence of events on the given target as if the given
      * keystroke was performed by a human. When simulating, for example, typing
      * the letter "A" (assuming a U.S. English keyboard) then the sequence will
@@ -591,6 +572,7 @@
    */
   Keyboard.US_ENGLISH = new Keyboard(US_ENGLISH_CHARCODE_KEYCODE_MAP, US_ENGLISH_ACTION_KEYCODE_MAP);
 
+  exports.KeyEvents = KeyEvents;
   exports.Keystroke = Keystroke;
   exports.Keyboard = Keyboard;
 
