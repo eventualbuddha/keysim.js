@@ -53,5 +53,8 @@
     "rollup-plugin-babel": "^2.6.1",
     "semantic-release": "^4.3.5",
     "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "dom-element-is-natively-editable": "^1.0.3"
   }
 }
