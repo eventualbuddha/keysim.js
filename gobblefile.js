@@ -23,7 +23,7 @@ function convertToES5(code) {
   return babel.transform(
     code, {
       loose: true,
-      playground: true,
+      stage: 0,
       blacklist: ['es6.modules', 'useStrict']
     });
 }

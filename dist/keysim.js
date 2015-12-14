@@ -1,10 +1,12 @@
 (function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  typeof exports === 'object' ? factory(exports) :
-  (global.Keysim = {}, factory(global.Keysim))
+  factory((global.Keysim = {}))
 }(this, function (exports) { 'use strict';
 
-  var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
   /* jshint esnext:true, undef:true, unused:true */
 
@@ -13,11 +15,21 @@
   var ALT = 1 << 2;
   var SHIFT = 1 << 3;
 
+  // Key Events
+  var KeyEvents = {
+    DOWN: 1 << 0,
+    PRESS: 1 << 1,
+    UP: 1 << 2,
+    INPUT: 1 << 3
+  };
+  KeyEvents.ALL = KeyEvents.DOWN | KeyEvents.PRESS | KeyEvents.UP | KeyEvents.INPUT;
+
   /**
    * Represents a keystroke, or a single key code with a set of active modifiers.
    *
    * @class Keystroke
    */
+
   var Keystroke = (function () {
     /**
      * @param {number} modifiers A bitmask formed by CTRL, META, ALT, and SHIFT.
@@ -35,17 +47,56 @@
       this.keyCode = keyCode;
     }
 
-    Keystroke.CTRL = CTRL;
-    Keystroke.META = META;
-    Keystroke.ALT = ALT;
-    Keystroke.SHIFT = SHIFT;
+    /**
+     * Simulates a keyboard with a particular key-to-character and key-to-action
+     * mapping. Use `US_ENGLISH` to get a pre-configured keyboard.
+     */
+
+    /**
+     * Gets the bitmask value for the "control" modifier.
+     *
+     * @type {number}
+     */
+
+    _createClass(Keystroke, null, [{
+      key: 'CTRL',
+      value: CTRL,
+
+      /**
+       * Gets the bitmask value for the "meta" modifier.
+       *
+       * @return {number}
+       */
+      enumerable: true
+    }, {
+      key: 'META',
+      value: META,
+
+      /**
+       * Gets the bitmask value for the "alt" modifier.
+       *
+       * @return {number}
+       */
+      enumerable: true
+    }, {
+      key: 'ALT',
+      value: ALT,
+
+      /**
+       * Gets the bitmask value for the "shift" modifier.
+       *
+       * @return {number}
+       */
+      enumerable: true
+    }, {
+      key: 'SHIFT',
+      value: SHIFT,
+      enumerable: true
+    }]);
+
     return Keystroke;
   })();
 
-  /**
-   * Simulates a keyboard with a particular key-to-character and key-to-action
-   * mapping. Use `US_ENGLISH` to get a pre-configured keyboard.
-   */
   var Keyboard = (function () {
     /**
      * @param {Object.<number, Keystroke>} charCodeKeyCodeMap
@@ -98,23 +149,23 @@
       try {
         event = new Event(type);
       } catch (e) {
-        event = document.createEvent("UIEvents");
+        event = document.createEvent('UIEvents');
       }
 
       event.initEvent(type, true, true);
 
       switch (type) {
-        case "textInput":
+        case 'textInput':
           event.data = String.fromCharCode(this.charCodeForKeystroke(keystroke));
           break;
 
-        case "keydown":case "keypress":case "keyup":
+        case 'keydown':case 'keypress':case 'keyup':
           event.shiftKey = keystroke.shiftKey;
           event.altKey = keystroke.altKey;
           event.metaKey = keystroke.metaKey;
           event.ctrlKey = keystroke.ctrlKey;
-          event.keyCode = type === "keypress" ? this.charCodeForKeystroke(keystroke) : keystroke.keyCode;
-          event.charCode = type === "keypress" ? event.keyCode : 0;
+          event.keyCode = type === 'keypress' ? this.charCodeForKeystroke(keystroke) : keystroke.keyCode;
+          event.charCode = type === 'keypress' ? event.keyCode : 0;
           event.which = event.keyCode;
           break;
       }
@@ -184,27 +235,39 @@
      * @param {Keystroke} keystroke
      * @param {HTMLElement} target
      * @param {boolean=} transitionModifiers
+     * @param {number} events
      */
 
     Keyboard.prototype.dispatchEventsForKeystroke = function dispatchEventsForKeystroke(keystroke, target) {
-      var transitionModifiers = arguments[2] === undefined ? true : arguments[2];
+      var transitionModifiers = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
+      var events = arguments.length <= 3 || arguments[3] === undefined ? KeyEvents.ALL : arguments[3];
 
       if (transitionModifiers) {
-        this.dispatchModifierStateTransition(target, 0, keystroke.modifiers);
+        this.dispatchModifierStateTransition(target, 0, keystroke.modifiers, events);
       }
 
-      var keydownEvent = this.createEventFromKeystroke("keydown", keystroke, target);
+      var keydownEvent = undefined;
+      if (events & KeyEvents.DOWN) {
+        keydownEvent = this.createEventFromKeystroke('keydown', keystroke, target);
+      }
 
-      if (target.dispatchEvent(keydownEvent) && this.targetCanReceiveTextInput(target)) {
-        var keypressEvent = this.createEventFromKeystroke("keypress", keystroke, target);
-        if (keypressEvent.charCode && target.dispatchEvent(keypressEvent)) {
-          var textinputEvent = this.createEventFromKeystroke("textInput", keystroke, target);
-          target.dispatchEvent(textinputEvent);
+      if (keydownEvent && target.dispatchEvent(keydownEvent) && this.targetCanReceiveTextInput(target)) {
+        var keypressEvent = undefined;
+        if (events & KeyEvents.PRESS) {
+          keypressEvent = this.createEventFromKeystroke('keypress', keystroke, target);
+        }
+        if (keypressEvent && keypressEvent.charCode && target.dispatchEvent(keypressEvent)) {
+          if (events & KeyEvents.INPUT) {
+            var textinputEvent = this.createEventFromKeystroke('textInput', keystroke, target);
+            target.dispatchEvent(textinputEvent);
+          }
         }
       }
 
-      var keyupEvent = this.createEventFromKeystroke("keyup", keystroke, target);
-      target.dispatchEvent(keyupEvent);
+      if (events & KeyEvents.UP) {
+        var keyupEvent = this.createEventFromKeystroke('keyup', keystroke, target);
+        target.dispatchEvent(keyupEvent);
+      }
 
       if (transitionModifiers) {
         this.dispatchModifierStateTransition(target, keystroke.modifiers, 0);
@@ -217,10 +280,13 @@
      * @param {EventTarget} target
      * @param {number} fromModifierState
      * @param {number} toModifierState
+     * @param {number} events
      * @private
      */
 
     Keyboard.prototype.dispatchModifierStateTransition = function dispatchModifierStateTransition(target, fromModifierState, toModifierState) {
+      var events = arguments.length <= 3 || arguments[3] === undefined ? KeyEvents.ALL : arguments[3];
+
       var currentModifierState = fromModifierState;
       var didHaveMeta = (fromModifierState & META) === META;
       var willHaveMeta = (toModifierState & META) === META;
@@ -231,56 +297,60 @@
       var didHaveAlt = (fromModifierState & ALT) === ALT;
       var willHaveAlt = (toModifierState & ALT) === ALT;
 
-      if (didHaveMeta === true && willHaveMeta === false) {
+      var includeKeyUp = events & KeyEvents.UP;
+      var includeKeyPress = events & KeyEvents.PRESS;
+      var includeKeyDown = events & KeyEvents.DOWN;
+
+      if (includeKeyUp && didHaveMeta === true && willHaveMeta === false) {
         // Release the meta key.
         currentModifierState &= ~META;
-        target.dispatchEvent(this.createEventFromKeystroke("keyup", new Keystroke(currentModifierState, this._actionKeyCodeMap.META), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keyup', new Keystroke(currentModifierState, this._actionKeyCodeMap.META), target));
       }
 
-      if (didHaveCtrl === true && willHaveCtrl === false) {
+      if (includeKeyUp && didHaveCtrl === true && willHaveCtrl === false) {
         // Release the ctrl key.
         currentModifierState &= ~CTRL;
-        target.dispatchEvent(this.createEventFromKeystroke("keyup", new Keystroke(currentModifierState, this._actionKeyCodeMap.CTRL), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keyup', new Keystroke(currentModifierState, this._actionKeyCodeMap.CTRL), target));
       }
 
-      if (didHaveShift === true && willHaveShift === false) {
+      if (includeKeyUp && didHaveShift === true && willHaveShift === false) {
         // Release the shift key.
         currentModifierState &= ~SHIFT;
-        target.dispatchEvent(this.createEventFromKeystroke("keyup", new Keystroke(currentModifierState, this._actionKeyCodeMap.SHIFT), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keyup', new Keystroke(currentModifierState, this._actionKeyCodeMap.SHIFT), target));
       }
 
-      if (didHaveAlt === true && willHaveAlt === false) {
+      if (includeKeyUp && didHaveAlt === true && willHaveAlt === false) {
         // Release the alt key.
         currentModifierState &= ~ALT;
-        target.dispatchEvent(this.createEventFromKeystroke("keyup", new Keystroke(currentModifierState, this._actionKeyCodeMap.ALT), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keyup', new Keystroke(currentModifierState, this._actionKeyCodeMap.ALT), target));
       }
 
-      if (didHaveMeta === false && willHaveMeta === true) {
+      if (includeKeyDown && didHaveMeta === false && willHaveMeta === true) {
         // Press the meta key.
         currentModifierState |= META;
-        target.dispatchEvent(this.createEventFromKeystroke("keydown", new Keystroke(currentModifierState, this._actionKeyCodeMap.META), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keydown', new Keystroke(currentModifierState, this._actionKeyCodeMap.META), target));
       }
 
-      if (didHaveCtrl === false && willHaveCtrl === true) {
+      if (includeKeyDown && didHaveCtrl === false && willHaveCtrl === true) {
         // Press the ctrl key.
         currentModifierState |= CTRL;
-        target.dispatchEvent(this.createEventFromKeystroke("keydown", new Keystroke(currentModifierState, this._actionKeyCodeMap.CTRL), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keydown', new Keystroke(currentModifierState, this._actionKeyCodeMap.CTRL), target));
       }
 
-      if (didHaveShift === false && willHaveShift === true) {
+      if (includeKeyDown && didHaveShift === false && willHaveShift === true) {
         // Press the shift key.
         currentModifierState |= SHIFT;
-        target.dispatchEvent(this.createEventFromKeystroke("keydown", new Keystroke(currentModifierState, this._actionKeyCodeMap.SHIFT), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keydown', new Keystroke(currentModifierState, this._actionKeyCodeMap.SHIFT), target));
       }
 
-      if (didHaveAlt === false && willHaveAlt === true) {
+      if (includeKeyDown && didHaveAlt === false && willHaveAlt === true) {
         // Press the alt key.
         currentModifierState |= ALT;
-        target.dispatchEvent(this.createEventFromKeystroke("keydown", new Keystroke(currentModifierState, this._actionKeyCodeMap.ALT), target));
+        target.dispatchEvent(this.createEventFromKeystroke('keydown', new Keystroke(currentModifierState, this._actionKeyCodeMap.ALT), target));
       }
 
       if (currentModifierState !== toModifierState) {
-        throw new Error("internal error, expected modifier state: " + toModifierState + (", got: " + currentModifierState));
+        throw new Error('internal error, expected modifier state: ' + toModifierState + (', got: ' + currentModifierState));
       }
     };
 
@@ -295,21 +365,21 @@
       var keyCode = null;
       var modifiers = 0;
 
-      var parts = action.split("+");
+      var parts = action.split('+');
       var lastPart = parts.pop();
 
       parts.forEach(function (part) {
         switch (part.toUpperCase()) {
-          case "CTRL":
+          case 'CTRL':
             modifiers |= CTRL;break;
-          case "META":
+          case 'META':
             modifiers |= META;break;
-          case "ALT":
+          case 'ALT':
             modifiers |= ALT;break;
-          case "SHIFT":
+          case 'SHIFT':
             modifiers |= SHIFT;break;
           default:
-            throw new Error("in \"" + action + "\", invalid modifier: " + part);
+            throw new Error('in "' + action + '", invalid modifier: ' + part);
             break;
         }
       });
@@ -321,7 +391,7 @@
         modifiers |= lastPartKeystroke.modifiers;
         keyCode = lastPartKeystroke.keyCode;
       } else {
-        throw new Error("in \"" + action + "\", invalid action: " + lastPart);
+        throw new Error('in "' + action + '", invalid action: ' + lastPart);
       }
 
       return new Keystroke(modifiers, keyCode);
@@ -349,11 +419,11 @@
       }
 
       switch (target.nodeName && target.nodeName.toLowerCase()) {
-        case "input":
+        case 'input':
           var type = target.type;
-          return !(type === "hidden" || type === "radio" || type === "checkbox");
+          return !(type === 'hidden' || type === 'radio' || type === 'checkbox');
 
-        case "textarea":
+        case 'textarea':
           return true;
 
         default:
@@ -502,30 +572,7 @@
    */
   Keyboard.US_ENGLISH = new Keyboard(US_ENGLISH_CHARCODE_KEYCODE_MAP, US_ENGLISH_ACTION_KEYCODE_MAP);
 
-  /**
-   * Gets the bitmask value for the "control" modifier.
-   *
-   * @type {number}
-   */
-
-  /**
-   * Gets the bitmask value for the "meta" modifier.
-   *
-   * @return {number}
-   */
-
-  /**
-   * Gets the bitmask value for the "alt" modifier.
-   *
-   * @return {number}
-   */
-
-  /**
-   * Gets the bitmask value for the "shift" modifier.
-   *
-   * @return {number}
-   */
-
+  exports.KeyEvents = KeyEvents;
   exports.Keystroke = Keystroke;
   exports.Keyboard = Keyboard;
 

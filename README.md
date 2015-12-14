@@ -108,10 +108,8 @@ keydown  keyCode=91  ([)   which=91  ([)   charCode=0
 
 ## Building
 
-Ensure that the keysim dependencies are installed (`npm install`) and that the
-[`gobble`](https://github.com/gobblejs/gobble) build tool is installed
-(`npm install -g gobble-cli`). Then run `npm run build` to re-create
-`dist/keysim.js`.
+Ensure that the keysim dependencies are installed (`npm install`). Then run
+`npm run build` to re-create `dist/keysim.js`.
 
 ## Testing
 

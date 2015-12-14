@@ -3,6 +3,7 @@ require("es5-shim");
 var assert = require('assert');
 var Keyboard = require('../dist/keysim').Keyboard;
 var Keystroke = require('../dist/keysim').Keystroke;
+var KeyEvents = require('../dist/keysim').KeyEvents;
 
 var isInNode = require('detect-node');
 
@@ -189,6 +190,17 @@ describe('Keyboard', function() {
             ['keydown', 0, 97],
             ['keypress', 97, 97],
             ['textInput', undefined, undefined],
+            ['keyup', 0, 97]
+          ]);
+        });
+
+        it('dispatches only keydown and keyup when passed explicitly', function() {
+          // Simulate typing 'a'.
+          assert.deepEqual(captureEventSummaries(input, function() {
+            var keyboard = new Keyboard({ 97: a }, {});
+            keyboard.dispatchEventsForKeystroke(a, input, true, KeyEvents.DOWN | KeyEvents.UP);
+          }), [
+            ['keydown', 0, 97],
             ['keyup', 0, 97]
           ]);
         });
