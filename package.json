@@ -44,5 +44,8 @@
     "karma-mocha": "^0.1.10",
     "karma-sauce-launcher": "^0.2.10",
     "mocha": "^2.1.0"
+  },
+  "dependencies": {
+    "dom-element-is-natively-editable": "^1.0.3"
   }
 }
