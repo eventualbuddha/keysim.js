@@ -1,9 +1,9 @@
 require("es5-shim");
 
 var assert = require('assert');
-var Keyboard = require('../dist/keysim').Keyboard;
-var Keystroke = require('../dist/keysim').Keystroke;
-var KeyEvents = require('../dist/keysim').KeyEvents;
+var Keyboard = require('..').Keyboard;
+var Keystroke = require('..').Keystroke;
+var KeyEvents = require('..').KeyEvents;
 
 var isInNode = require('detect-node');
 
