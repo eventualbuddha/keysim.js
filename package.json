@@ -13,9 +13,10 @@
   },
   "scripts": {
     "build": "browserify . --standalone keysim > dist/keysim.js",
-    "test": "npm run test:node && npm run test:browser",
+    "test": "npm run test:node && npm run test:node:dist && npm run test:browser",
     "test:browser": "./node_modules/karma/bin/karma start karma.conf.js",
-    "test:node": "mocha --require babel-register -R spec --recursive test"
+    "test:node": "mocha --require babel-register -R spec --recursive test",
+    "test:node:dist": "DIST=true mocha --require babel-register -R spec --recursive test"
   },
   "files": [
     "dist/keysim.js",
