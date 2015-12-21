@@ -12,7 +12,6 @@
     "url": "https://github.com/eventualbuddha/keysim.js"
   },
   "scripts": {
-    "build": "gobble build dist -f",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "./node_modules/karma/bin/karma start karma.conf.js",
     "test:node": "mocha -R spec --recursive test"
@@ -35,9 +34,6 @@
     "babel": "^5.8.21",
     "detect-node": "^2.0.3",
     "es5-shim": "^4.1.10",
-    "esperanto": "^0.7.4",
-    "gobble": "^0.10.2",
-    "gobble-cli": "^0.4.2",
     "jsdom": "3.1.2",
     "karma": "^0.13.9",
     "karma-browserify": "^4.3.0",
