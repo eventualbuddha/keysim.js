@@ -1,123 +1,110 @@
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  factory((global.Keysim = {}))
-}(this, function (exports) { 'use strict';
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.keysim = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
 
-  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-  /* jshint esnext:true, undef:true, unused:true */
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var CTRL = 1 << 0;
-  var META = 1 << 1;
-  var ALT = 1 << 2;
-  var SHIFT = 1 << 3;
+/* jshint esnext:true, undef:true, unused:true */
 
-  // Key Events
-  var KeyEvents = {
-    DOWN: 1 << 0,
-    PRESS: 1 << 1,
-    UP: 1 << 2,
-    INPUT: 1 << 3
-  };
-  KeyEvents.ALL = KeyEvents.DOWN | KeyEvents.PRESS | KeyEvents.UP | KeyEvents.INPUT;
+var CTRL = 1 << 0;
+var META = 1 << 1;
+var ALT = 1 << 2;
+var SHIFT = 1 << 3;
 
+// Key Events
+var KeyEvents = exports.KeyEvents = {
+  DOWN: 1 << 0,
+  PRESS: 1 << 1,
+  UP: 1 << 2,
+  INPUT: 1 << 3
+};
+KeyEvents.ALL = KeyEvents.DOWN | KeyEvents.PRESS | KeyEvents.UP | KeyEvents.INPUT;
+
+/**
+ * Represents a keystroke, or a single key code with a set of active modifiers.
+ *
+ * @class Keystroke
+ */
+
+var Keystroke =
+/**
+ * @param {number} modifiers A bitmask formed by CTRL, META, ALT, and SHIFT.
+ * @param {number} keyCode
+ */
+exports.Keystroke = function Keystroke(modifiers, keyCode) {
+  _classCallCheck(this, Keystroke);
+
+  this.modifiers = modifiers;
+  this.ctrlKey = !!(modifiers & CTRL);
+  this.metaKey = !!(modifiers & META);
+  this.altKey = !!(modifiers & ALT);
+  this.shiftKey = !!(modifiers & SHIFT);
+  this.keyCode = keyCode;
+}
+
+/**
+ * Gets the bitmask value for the "control" modifier.
+ *
+ * @type {number}
+ */
+
+/**
+ * Gets the bitmask value for the "meta" modifier.
+ *
+ * @return {number}
+ */
+
+/**
+ * Gets the bitmask value for the "alt" modifier.
+ *
+ * @return {number}
+ */
+
+/**
+ * Gets the bitmask value for the "shift" modifier.
+ *
+ * @return {number}
+ */
+;
+
+/**
+ * Simulates a keyboard with a particular key-to-character and key-to-action
+ * mapping. Use `US_ENGLISH` to get a pre-configured keyboard.
+ */
+
+Keystroke.CTRL = CTRL;
+Keystroke.META = META;
+Keystroke.ALT = ALT;
+Keystroke.SHIFT = SHIFT;
+
+var Keyboard = exports.Keyboard = (function () {
   /**
-   * Represents a keystroke, or a single key code with a set of active modifiers.
-   *
-   * @class Keystroke
+   * @param {Object.<number, Keystroke>} charCodeKeyCodeMap
+   * @param {Object.<string, number>} actionKeyCodeMap
    */
 
-  var Keystroke = (function () {
-    /**
-     * @param {number} modifiers A bitmask formed by CTRL, META, ALT, and SHIFT.
-     * @param {number} keyCode
-     */
+  function Keyboard(charCodeKeyCodeMap, actionKeyCodeMap) {
+    _classCallCheck(this, Keyboard);
 
-    function Keystroke(modifiers, keyCode) {
-      _classCallCheck(this, Keystroke);
+    this._charCodeKeyCodeMap = charCodeKeyCodeMap;
+    this._actionKeyCodeMap = actionKeyCodeMap;
+  }
 
-      this.modifiers = modifiers;
-      this.ctrlKey = !!(modifiers & CTRL);
-      this.metaKey = !!(modifiers & META);
-      this.altKey = !!(modifiers & ALT);
-      this.shiftKey = !!(modifiers & SHIFT);
-      this.keyCode = keyCode;
-    }
+  /**
+   * Determines the character code generated by pressing the given keystroke.
+   *
+   * @param {Keystroke} keystroke
+   * @return {?number}
+   */
 
-    /**
-     * Simulates a keyboard with a particular key-to-character and key-to-action
-     * mapping. Use `US_ENGLISH` to get a pre-configured keyboard.
-     */
-
-    /**
-     * Gets the bitmask value for the "control" modifier.
-     *
-     * @type {number}
-     */
-
-    _createClass(Keystroke, null, [{
-      key: 'CTRL',
-      value: CTRL,
-
-      /**
-       * Gets the bitmask value for the "meta" modifier.
-       *
-       * @return {number}
-       */
-      enumerable: true
-    }, {
-      key: 'META',
-      value: META,
-
-      /**
-       * Gets the bitmask value for the "alt" modifier.
-       *
-       * @return {number}
-       */
-      enumerable: true
-    }, {
-      key: 'ALT',
-      value: ALT,
-
-      /**
-       * Gets the bitmask value for the "shift" modifier.
-       *
-       * @return {number}
-       */
-      enumerable: true
-    }, {
-      key: 'SHIFT',
-      value: SHIFT,
-      enumerable: true
-    }]);
-
-    return Keystroke;
-  })();
-
-  var Keyboard = (function () {
-    /**
-     * @param {Object.<number, Keystroke>} charCodeKeyCodeMap
-     * @param {Object.<string, number>} actionKeyCodeMap
-     */
-
-    function Keyboard(charCodeKeyCodeMap, actionKeyCodeMap) {
-      _classCallCheck(this, Keyboard);
-
-      this._charCodeKeyCodeMap = charCodeKeyCodeMap;
-      this._actionKeyCodeMap = actionKeyCodeMap;
-    }
-
-    /**
-     * Determines the character code generated by pressing the given keystroke.
-     *
-     * @param {Keystroke} keystroke
-     * @return {?number}
-     */
-
-    Keyboard.prototype.charCodeForKeystroke = function charCodeForKeystroke(keystroke) {
+  _createClass(Keyboard, [{
+    key: 'charCodeForKeystroke',
+    value: function charCodeForKeystroke(keystroke) {
       var map = this._charCodeKeyCodeMap;
       for (var charCode in map) {
         if (Object.prototype.hasOwnProperty.call(map, charCode)) {
@@ -128,7 +115,7 @@
         }
       }
       return null;
-    };
+    }
 
     /**
      * Creates an event ready for dispatching onto the given target.
@@ -139,7 +126,9 @@
      * @return {Event}
      */
 
-    Keyboard.prototype.createEventFromKeystroke = function createEventFromKeystroke(type, keystroke, target) {
+  }, {
+    key: 'createEventFromKeystroke',
+    value: function createEventFromKeystroke(type, keystroke, target) {
       var document = target.ownerDocument;
       var window = document.defaultView;
       var Event = window.Event;
@@ -171,7 +160,7 @@
       }
 
       return event;
-    };
+    }
 
     /**
      * Fires the correct sequence of events on the given target as if the given
@@ -181,10 +170,12 @@
      * @param {HTMLElement} target
      */
 
-    Keyboard.prototype.dispatchEventsForAction = function dispatchEventsForAction(action, target) {
+  }, {
+    key: 'dispatchEventsForAction',
+    value: function dispatchEventsForAction(action, target) {
       var keystroke = this.keystrokeForAction(action);
       this.dispatchEventsForKeystroke(keystroke, target);
-    };
+    }
 
     /**
      * Fires the correct sequence of events on the given target as if the given
@@ -194,16 +185,18 @@
      * @param {HTMLElement} target
      */
 
-    Keyboard.prototype.dispatchEventsForInput = function dispatchEventsForInput(input, target) {
+  }, {
+    key: 'dispatchEventsForInput',
+    value: function dispatchEventsForInput(input, target) {
       var currentModifierState = 0;
-      for (var i = 0, _length = input.length; i < _length; i++) {
+      for (var i = 0, length = input.length; i < length; i++) {
         var keystroke = this.keystrokeForCharCode(input.charCodeAt(i));
         this.dispatchModifierStateTransition(target, currentModifierState, keystroke.modifiers);
         this.dispatchEventsForKeystroke(keystroke, target, false);
         currentModifierState = keystroke.modifiers;
       }
       this.dispatchModifierStateTransition(target, currentModifierState, 0);
-    };
+    }
 
     /**
      * Fires the correct sequence of events on the given target as if the given
@@ -238,7 +231,9 @@
      * @param {number} events
      */
 
-    Keyboard.prototype.dispatchEventsForKeystroke = function dispatchEventsForKeystroke(keystroke, target) {
+  }, {
+    key: 'dispatchEventsForKeystroke',
+    value: function dispatchEventsForKeystroke(keystroke, target) {
       var transitionModifiers = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
       var events = arguments.length <= 3 || arguments[3] === undefined ? KeyEvents.ALL : arguments[3];
 
@@ -272,7 +267,7 @@
       if (transitionModifiers) {
         this.dispatchModifierStateTransition(target, keystroke.modifiers, 0);
       }
-    };
+    }
 
     /**
      * Transitions from one modifier state to another by dispatching key events.
@@ -284,7 +279,9 @@
      * @private
      */
 
-    Keyboard.prototype.dispatchModifierStateTransition = function dispatchModifierStateTransition(target, fromModifierState, toModifierState) {
+  }, {
+    key: 'dispatchModifierStateTransition',
+    value: function dispatchModifierStateTransition(target, fromModifierState, toModifierState) {
       var events = arguments.length <= 3 || arguments[3] === undefined ? KeyEvents.ALL : arguments[3];
 
       var currentModifierState = fromModifierState;
@@ -352,7 +349,7 @@
       if (currentModifierState !== toModifierState) {
         throw new Error('internal error, expected modifier state: ' + toModifierState + (', got: ' + currentModifierState));
       }
-    };
+    }
 
     /**
      * Returns the keystroke associated with the given action.
@@ -361,7 +358,9 @@
      * @return {?Keystroke}
      */
 
-    Keyboard.prototype.keystrokeForAction = function keystrokeForAction(action) {
+  }, {
+    key: 'keystrokeForAction',
+    value: function keystrokeForAction(action) {
       var keyCode = null;
       var modifiers = 0;
 
@@ -395,7 +394,7 @@
       }
 
       return new Keystroke(modifiers, keyCode);
-    };
+    }
 
     /**
      * Gets the keystroke used to generate the given character code.
@@ -404,16 +403,20 @@
      * @return {?Keystroke}
      */
 
-    Keyboard.prototype.keystrokeForCharCode = function keystrokeForCharCode(charCode) {
+  }, {
+    key: 'keystrokeForCharCode',
+    value: function keystrokeForCharCode(charCode) {
       return this._charCodeKeyCodeMap[charCode] || null;
-    };
+    }
 
     /**
      * @param {EventTarget} target
      * @private
      */
 
-    Keyboard.prototype.targetCanReceiveTextInput = function targetCanReceiveTextInput(target) {
+  }, {
+    key: 'targetCanReceiveTextInput',
+    value: function targetCanReceiveTextInput(target) {
       if (!target) {
         return false;
       }
@@ -429,151 +432,149 @@
         default:
           return false;
       }
-    };
+    }
+  }]);
 
-    return Keyboard;
-  })();
+  return Keyboard;
+})();
 
-  var US_ENGLISH_CHARCODE_KEYCODE_MAP = {
-    32: new Keystroke(0, 32), // <space>
-    33: new Keystroke(SHIFT, 49), // !
-    34: new Keystroke(SHIFT, 222), // "
-    35: new Keystroke(SHIFT, 51), // #
-    36: new Keystroke(SHIFT, 52), // $
-    37: new Keystroke(SHIFT, 53), // %
-    38: new Keystroke(SHIFT, 55), // &
-    39: new Keystroke(0, 222), // '
-    40: new Keystroke(SHIFT, 57), // (
-    41: new Keystroke(SHIFT, 48), // )
-    42: new Keystroke(SHIFT, 56), // *
-    43: new Keystroke(SHIFT, 187), // +
-    44: new Keystroke(0, 188), // ,
-    45: new Keystroke(0, 189), // -
-    46: new Keystroke(0, 190), // .
-    47: new Keystroke(0, 191), // /
-    48: new Keystroke(0, 48), // 0
-    49: new Keystroke(0, 49), // 1
-    50: new Keystroke(0, 50), // 2
-    51: new Keystroke(0, 51), // 3
-    52: new Keystroke(0, 52), // 4
-    53: new Keystroke(0, 53), // 5
-    54: new Keystroke(0, 54), // 6
-    55: new Keystroke(0, 55), // 7
-    56: new Keystroke(0, 56), // 8
-    57: new Keystroke(0, 57), // 9
-    58: new Keystroke(SHIFT, 186), // :
-    59: new Keystroke(0, 186), // ;
-    60: new Keystroke(SHIFT, 188), // <
-    61: new Keystroke(0, 187), // =
-    62: new Keystroke(SHIFT, 190), // >
-    63: new Keystroke(SHIFT, 191), // ?
-    64: new Keystroke(SHIFT, 50), // @
-    65: new Keystroke(SHIFT, 65), // A
-    66: new Keystroke(SHIFT, 66), // B
-    67: new Keystroke(SHIFT, 67), // C
-    68: new Keystroke(SHIFT, 68), // D
-    69: new Keystroke(SHIFT, 69), // E
-    70: new Keystroke(SHIFT, 70), // F
-    71: new Keystroke(SHIFT, 71), // G
-    72: new Keystroke(SHIFT, 72), // H
-    73: new Keystroke(SHIFT, 73), // I
-    74: new Keystroke(SHIFT, 74), // J
-    75: new Keystroke(SHIFT, 75), // K
-    76: new Keystroke(SHIFT, 76), // L
-    77: new Keystroke(SHIFT, 77), // M
-    78: new Keystroke(SHIFT, 78), // N
-    79: new Keystroke(SHIFT, 79), // O
-    80: new Keystroke(SHIFT, 80), // P
-    81: new Keystroke(SHIFT, 81), // Q
-    82: new Keystroke(SHIFT, 82), // R
-    83: new Keystroke(SHIFT, 83), // S
-    84: new Keystroke(SHIFT, 84), // T
-    85: new Keystroke(SHIFT, 85), // U
-    86: new Keystroke(SHIFT, 86), // V
-    87: new Keystroke(SHIFT, 87), // W
-    88: new Keystroke(SHIFT, 88), // X
-    89: new Keystroke(SHIFT, 89), // Y
-    90: new Keystroke(SHIFT, 90), // Z
-    91: new Keystroke(0, 219), // [
-    92: new Keystroke(0, 220), // \
-    93: new Keystroke(0, 221), // ]
-    96: new Keystroke(0, 192), // `
-    97: new Keystroke(0, 65), // a
-    98: new Keystroke(0, 66), // b
-    99: new Keystroke(0, 67), // c
-    100: new Keystroke(0, 68), // d
-    101: new Keystroke(0, 69), // e
-    102: new Keystroke(0, 70), // f
-    103: new Keystroke(0, 71), // g
-    104: new Keystroke(0, 72), // h
-    105: new Keystroke(0, 73), // i
-    106: new Keystroke(0, 74), // j
-    107: new Keystroke(0, 75), // k
-    108: new Keystroke(0, 76), // l
-    109: new Keystroke(0, 77), // m
-    110: new Keystroke(0, 78), // n
-    111: new Keystroke(0, 79), // o
-    112: new Keystroke(0, 80), // p
-    113: new Keystroke(0, 81), // q
-    114: new Keystroke(0, 82), // r
-    115: new Keystroke(0, 83), // s
-    116: new Keystroke(0, 84), // t
-    117: new Keystroke(0, 85), // u
-    118: new Keystroke(0, 86), // v
-    119: new Keystroke(0, 87), // w
-    120: new Keystroke(0, 88), // x
-    121: new Keystroke(0, 89), // y
-    122: new Keystroke(0, 90), // z
-    123: new Keystroke(SHIFT, 219), // {
-    124: new Keystroke(SHIFT, 220), // |
-    125: new Keystroke(SHIFT, 221), // }
-    126: new Keystroke(SHIFT, 192) // ~
-  };
+var US_ENGLISH_CHARCODE_KEYCODE_MAP = {
+  32: new Keystroke(0, 32), // <space>
+  33: new Keystroke(SHIFT, 49), // !
+  34: new Keystroke(SHIFT, 222), // "
+  35: new Keystroke(SHIFT, 51), // #
+  36: new Keystroke(SHIFT, 52), // $
+  37: new Keystroke(SHIFT, 53), // %
+  38: new Keystroke(SHIFT, 55), // &
+  39: new Keystroke(0, 222), // '
+  40: new Keystroke(SHIFT, 57), // (
+  41: new Keystroke(SHIFT, 48), // )
+  42: new Keystroke(SHIFT, 56), // *
+  43: new Keystroke(SHIFT, 187), // +
+  44: new Keystroke(0, 188), // ,
+  45: new Keystroke(0, 189), // -
+  46: new Keystroke(0, 190), // .
+  47: new Keystroke(0, 191), // /
+  48: new Keystroke(0, 48), // 0
+  49: new Keystroke(0, 49), // 1
+  50: new Keystroke(0, 50), // 2
+  51: new Keystroke(0, 51), // 3
+  52: new Keystroke(0, 52), // 4
+  53: new Keystroke(0, 53), // 5
+  54: new Keystroke(0, 54), // 6
+  55: new Keystroke(0, 55), // 7
+  56: new Keystroke(0, 56), // 8
+  57: new Keystroke(0, 57), // 9
+  58: new Keystroke(SHIFT, 186), // :
+  59: new Keystroke(0, 186), // ;
+  60: new Keystroke(SHIFT, 188), // <
+  61: new Keystroke(0, 187), // =
+  62: new Keystroke(SHIFT, 190), // >
+  63: new Keystroke(SHIFT, 191), // ?
+  64: new Keystroke(SHIFT, 50), // @
+  65: new Keystroke(SHIFT, 65), // A
+  66: new Keystroke(SHIFT, 66), // B
+  67: new Keystroke(SHIFT, 67), // C
+  68: new Keystroke(SHIFT, 68), // D
+  69: new Keystroke(SHIFT, 69), // E
+  70: new Keystroke(SHIFT, 70), // F
+  71: new Keystroke(SHIFT, 71), // G
+  72: new Keystroke(SHIFT, 72), // H
+  73: new Keystroke(SHIFT, 73), // I
+  74: new Keystroke(SHIFT, 74), // J
+  75: new Keystroke(SHIFT, 75), // K
+  76: new Keystroke(SHIFT, 76), // L
+  77: new Keystroke(SHIFT, 77), // M
+  78: new Keystroke(SHIFT, 78), // N
+  79: new Keystroke(SHIFT, 79), // O
+  80: new Keystroke(SHIFT, 80), // P
+  81: new Keystroke(SHIFT, 81), // Q
+  82: new Keystroke(SHIFT, 82), // R
+  83: new Keystroke(SHIFT, 83), // S
+  84: new Keystroke(SHIFT, 84), // T
+  85: new Keystroke(SHIFT, 85), // U
+  86: new Keystroke(SHIFT, 86), // V
+  87: new Keystroke(SHIFT, 87), // W
+  88: new Keystroke(SHIFT, 88), // X
+  89: new Keystroke(SHIFT, 89), // Y
+  90: new Keystroke(SHIFT, 90), // Z
+  91: new Keystroke(0, 219), // [
+  92: new Keystroke(0, 220), // \
+  93: new Keystroke(0, 221), // ]
+  96: new Keystroke(0, 192), // `
+  97: new Keystroke(0, 65), // a
+  98: new Keystroke(0, 66), // b
+  99: new Keystroke(0, 67), // c
+  100: new Keystroke(0, 68), // d
+  101: new Keystroke(0, 69), // e
+  102: new Keystroke(0, 70), // f
+  103: new Keystroke(0, 71), // g
+  104: new Keystroke(0, 72), // h
+  105: new Keystroke(0, 73), // i
+  106: new Keystroke(0, 74), // j
+  107: new Keystroke(0, 75), // k
+  108: new Keystroke(0, 76), // l
+  109: new Keystroke(0, 77), // m
+  110: new Keystroke(0, 78), // n
+  111: new Keystroke(0, 79), // o
+  112: new Keystroke(0, 80), // p
+  113: new Keystroke(0, 81), // q
+  114: new Keystroke(0, 82), // r
+  115: new Keystroke(0, 83), // s
+  116: new Keystroke(0, 84), // t
+  117: new Keystroke(0, 85), // u
+  118: new Keystroke(0, 86), // v
+  119: new Keystroke(0, 87), // w
+  120: new Keystroke(0, 88), // x
+  121: new Keystroke(0, 89), // y
+  122: new Keystroke(0, 90), // z
+  123: new Keystroke(SHIFT, 219), // {
+  124: new Keystroke(SHIFT, 220), // |
+  125: new Keystroke(SHIFT, 221), // }
+  126: new Keystroke(SHIFT, 192) // ~
+};
 
-  var US_ENGLISH_ACTION_KEYCODE_MAP = {
-    BACKSPACE: 8,
-    TAB: 9,
-    ENTER: 13,
-    SHIFT: 16,
-    CTRL: 17,
-    ALT: 18,
-    PAUSE: 19,
-    CAPSLOCK: 20,
-    ESCAPE: 27,
-    PAGEUP: 33,
-    PAGEDOWN: 34,
-    END: 35,
-    HOME: 36,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40,
-    INSERT: 45,
-    DELETE: 46,
-    META: 91,
-    F1: 112,
-    F2: 113,
-    F3: 114,
-    F4: 115,
-    F5: 116,
-    F6: 117,
-    F7: 118,
-    F8: 119,
-    F9: 120,
-    F10: 121,
-    F11: 122,
-    F12: 123
-  };
+var US_ENGLISH_ACTION_KEYCODE_MAP = {
+  BACKSPACE: 8,
+  TAB: 9,
+  ENTER: 13,
+  SHIFT: 16,
+  CTRL: 17,
+  ALT: 18,
+  PAUSE: 19,
+  CAPSLOCK: 20,
+  ESCAPE: 27,
+  PAGEUP: 33,
+  PAGEDOWN: 34,
+  END: 35,
+  HOME: 36,
+  LEFT: 37,
+  UP: 38,
+  RIGHT: 39,
+  DOWN: 40,
+  INSERT: 45,
+  DELETE: 46,
+  META: 91,
+  F1: 112,
+  F2: 113,
+  F3: 114,
+  F4: 115,
+  F5: 116,
+  F6: 117,
+  F7: 118,
+  F8: 119,
+  F9: 120,
+  F10: 121,
+  F11: 122,
+  F12: 123
+};
 
-  /**
-   * Gets a keyboard instance configured as a U.S. English keyboard would be.
-   *
-   * @return {Keyboard}
-   */
-  Keyboard.US_ENGLISH = new Keyboard(US_ENGLISH_CHARCODE_KEYCODE_MAP, US_ENGLISH_ACTION_KEYCODE_MAP);
+/**
+ * Gets a keyboard instance configured as a U.S. English keyboard would be.
+ *
+ * @return {Keyboard}
+ */
+Keyboard.US_ENGLISH = new Keyboard(US_ENGLISH_CHARCODE_KEYCODE_MAP, US_ENGLISH_ACTION_KEYCODE_MAP);
 
-  exports.KeyEvents = KeyEvents;
-  exports.Keystroke = Keystroke;
-  exports.Keyboard = Keyboard;
-
-}));
+},{}]},{},[1])(1)
+});
