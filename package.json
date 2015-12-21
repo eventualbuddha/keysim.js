@@ -24,6 +24,9 @@
   "browserify": {
     "transform": [
       "babelify"
+    ],
+    "ignore": [
+      "jsdom"
     ]
   },
   "babel": {
