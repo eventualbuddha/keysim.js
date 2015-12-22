@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "description": "Keyboard simulator for JavaScript.",
   "main": "lib/keysim.js",
-  "jsnext:main": "lib/keysim.js",
+  "jsnext:main": "lib/keysim.es",
   "directories": {
     "test": "test"
   },
