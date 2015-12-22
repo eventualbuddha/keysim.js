@@ -1,15 +1,14 @@
-require("es5-shim");
+import "es5-shim";
 
-var assert = require('assert');
-var Keyboard = require('../dist/keysim').Keyboard;
-var Keystroke = require('../dist/keysim').Keystroke;
-var KeyEvents = require('../dist/keysim').KeyEvents;
+import assert from 'assert';
 
-var isInNode = require('detect-node');
+import {Keyboard, Keystroke, KeyEvents} from '../lib/keysim.es';
+
+import isInNode from 'detect-node';
 
 // jsdom is required when running in node. Browsers have real DOM.
-var jsdom = isInNode ? require('jsdom') : null;
-var addEventHandler = require('add-event-handler');
+import jsdom from 'jsdom';
+import addEventHandler from 'add-event-handler';
 
 function captureEvents(element, body) {
   var events = [];

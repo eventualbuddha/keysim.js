@@ -38,7 +38,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'dist/*.js',
       'test/*.js'
     ],
 
@@ -55,14 +54,7 @@ module.exports = function(config) {
     },
 
     browserify: {
-        debug: true,
-        configure: function(bundle) {
-            bundle.on('prebundle', function() {
-                // Exclude jsdom because it makes IE =< 8 go kaboom.
-                // And browsers have real DOM, right?
-                bundle.exclude('jsdom');
-            });
-        }
+        debug: true
     },
 
 
@@ -96,6 +88,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: false
   });
 };
