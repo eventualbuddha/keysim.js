@@ -22,8 +22,8 @@
     "prepublish": "in-publish && npm test && npm run build || not-in-publish"
   },
   "files": [
-    "dist/keysim.js",
-    "lib/keysim.js"
+    "dist/keysim.browser.js",
+    "dist/keysim.node.js",
   ],
   "browserify": {
     "transform": [
