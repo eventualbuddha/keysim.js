@@ -2,7 +2,7 @@ import "es5-shim";
 
 import assert from 'assert';
 
-import {Keyboard, Keystroke, KeyEvents} from '..';
+import {Keyboard, Keystroke, KeyEvents} from '../lib/keysim.es';
 
 import isInNode from 'detect-node';
 
