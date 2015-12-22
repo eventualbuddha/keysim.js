@@ -12,6 +12,7 @@
     "url": "https://github.com/eventualbuddha/keysim.js"
   },
   "scripts": {
+    "transpile": "babel lib/keysim.es > lib/keysim.js",
     "build": "mkdir -p dist && browserify . --standalone keysim > dist/keysim.js",
     "pretest": "npm run build",
     "test": "npm run test:node && npm run test:browser",
