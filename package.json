@@ -25,6 +25,7 @@
     "dist/keysim.browser.js",
     "dist/keysim.node.js",
   ],
+  "browser": "lib/keysim.es",
   "browserify": {
     "transform": [
       "babelify"
