@@ -12,8 +12,8 @@
     "url": "https://github.com/eventualbuddha/keysim.js"
   },
   "scripts": {
-    "transpile": "babel lib/keysim.es > lib/keysim.js",
-    "build": "mkdir -p dist && browserify . --standalone keysim > dist/keysim.js",
+    "build:node": "babel lib/keysim.es > lib/keysim.js",
+    "build:browser": "mkdir -p dist && browserify . --standalone keysim > dist/keysim.js",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "karma start --single-run",
     "test:node": "mocha --require babel-register -R spec --recursive test",
