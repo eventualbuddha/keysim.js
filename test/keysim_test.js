@@ -2,13 +2,7 @@ import "es5-shim";
 
 import assert from 'assert';
 
-// whether we test the source or the dist
-import * as src from '..';
-import * as dist from '../dist/keysim';
-const keysim = process.env.DIST ? dist : src;
-const Keyboard = keysim.Keyboard;
-const Keystroke = keysim.Keystroke;
-const KeyEvents = keysim.KeyEvents;
+import {Keyboard, Keystroke, KeyEvents} from '..';
 
 import isInNode from 'detect-node';
 
