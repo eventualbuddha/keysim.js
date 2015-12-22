@@ -21,10 +21,6 @@
     "test:node": "mocha --require babel-register -R spec --recursive test",
     "prepublish": "in-publish && npm test && npm run build || not-in-publish"
   },
-  "files": [
-    "dist/keysim.browser.js",
-    "dist/keysim.node.js",
-  ],
   "browser": "lib/keysim.es",
   "browserify": {
     "transform": [
