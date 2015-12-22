@@ -2,7 +2,7 @@
   "name": "keysim",
   "version": "1.3.0",
   "description": "Keyboard simulator for JavaScript.",
-  "main": "lib/keysim.js",
+  "main": "dist/keysim.node.js",
   "jsnext:main": "lib/keysim.es",
   "directories": {
     "test": "test"
@@ -12,8 +12,8 @@
     "url": "https://github.com/eventualbuddha/keysim.js"
   },
   "scripts": {
-    "build:node": "babel lib/keysim.es > lib/keysim.js",
-    "build:browser": "mkdir -p dist && browserify . --standalone keysim > dist/keysim.js",
+    "build:node": "mkdir -p dist && babel lib/keysim.es > dist/keysim.node.js",
+    "build:browser": "mkdir -p dist && browserify lib/keysim.es --standalone keysim > dist/keysim.browser.js",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "karma start --single-run",
     "test:node": "mocha --require babel-register -R spec --recursive test",
