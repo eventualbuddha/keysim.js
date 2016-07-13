@@ -9,9 +9,7 @@ simulate user keystrokes, but is particularly useful in testing environments.
 
 ```sh
 # Install via npm to use with a web or node (e.g. with jsdom) project.
-$ npm install keysim
-# Install via bower to use with a web project.
-$ bower install keysim
+$ npm install [--save-dev] keysim
 # Install by copying the dist file.
 $ git clone https://github.com/eventualbuddha/keysim.js.git
 $ cp keysim.js/dist/keysim.js path/to/vendor/keysim.js
