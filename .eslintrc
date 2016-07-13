@@ -1,0 +1,7 @@
+{
+  "extends": "eslint:recommended",
+  "rules": {
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "indent": ["error", 2, { "SwitchCase": 1 }]
+  }
+}

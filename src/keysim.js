@@ -1,5 +1,3 @@
-/* jshint esnext:true, undef:true, unused:true */
-
 import isEditable from 'dom-element-is-natively-editable';
 
 const CTRL  = 1 << 0;
@@ -256,7 +254,6 @@ export class Keyboard {
     let willHaveAlt = (toModifierState & ALT) === ALT;
 
     const includeKeyUp = events & KeyEvents.UP;
-    const includeKeyPress = events & KeyEvents.PRESS;
     const includeKeyDown = events & KeyEvents.DOWN;
 
     if (includeKeyUp && didHaveMeta === true && willHaveMeta === false) {
@@ -385,7 +382,6 @@ export class Keyboard {
         case 'SHIFT': modifiers |= SHIFT; break;
         default:
           throw new Error(`in "${action}", invalid modifier: ${part}`);
-          break;
       }
     });
 
