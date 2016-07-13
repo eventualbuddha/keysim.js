@@ -15,7 +15,8 @@
     "build": "gobble build dist -f",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "./node_modules/karma/bin/karma start karma.conf.js",
-    "test:node": "mocha"
+    "test:node": "mocha",
+    "prepublish": "npm run build"
   },
   "files": [
     "dist/keysim.js",
