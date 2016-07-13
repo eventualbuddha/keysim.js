@@ -28,8 +28,8 @@ allows you to test your event handling code by sending the correct DOM events.*
 Get a standard keyboard and use it to fire events onto a DOM element:
 
 ```js
-var input = document.getElementById('name');
-var keyboard = Keysim.Keyboard.US_ENGLISH;
+let input = document.getElementById('name');
+let keyboard = Keysim.Keyboard.US_ENGLISH;
 keyboard.dispatchEventsForInput('hello!', input);
 ```
 
@@ -46,10 +46,10 @@ cause input. For example, here's how to simulate backward deleting a word and
 selecting all text in the input:
 
 ```js
-var input = document.getElementById('name');
-var keyboard = Keysim.Keyboard.US_ENGLISH;
+let input = document.getElementById('name');
+let keyboard = Keysim.Keyboard.US_ENGLISH;
 keyboard.dispatchEventsForAction('alt+backspace', input);
-keyboard.dispatchEventsForAction((osx ? 'meta' : 'ctrl') + '+a', input);
+keyboard.dispatchEventsForAction(`${osx ? 'meta' : 'ctrl'}+a`, input);
 ```
 
 ### Raw Keystroke Dispatch
@@ -60,9 +60,9 @@ If you need to dispatch events for an exact sequence of keystrokes you may use
 
 
 ```js
-var input = document.getElementById('name');
-var keyboard = Keysim.Keyboard.US_ENGLISH;
-var ctrl_shift_enter = new Keysim.Keystroke(
+let input = document.getElementById('name');
+let keyboard = Keysim.Keyboard.US_ENGLISH;
+let ctrl_shift_enter = new Keysim.Keystroke(
   Keysim.Keystroke.CTRL | Keysim.Keystroke.SHIFT,
   13
 );
