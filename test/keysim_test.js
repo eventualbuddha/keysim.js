@@ -1,4 +1,4 @@
-require("es5-shim");
+require('es5-shim');
 
 var assert = require('assert');
 var Keyboard = require('../dist/keysim').Keyboard;
@@ -19,7 +19,7 @@ function captureEvents(element, body) {
     }
   };
   ['keydown', 'keypress', 'keyup', 'textInput'].forEach(function(type) {
-      addEventHandler(element, type, handler);
+    addEventHandler(element, type, handler);
   });
   body();
   return events;
@@ -33,7 +33,7 @@ function captureEventSummaries(element, body) {
 
 function getDocument() {
   if (isInNode) {
-      return jsdom.jsdom();
+    return jsdom.jsdom();
   }
   return window.document;
 }
