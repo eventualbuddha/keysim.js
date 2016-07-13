@@ -1,5 +1,7 @@
 /* jshint esnext:true, undef:true, unused:true */
 
+import isEditable from 'dom-element-is-natively-editable';
+
 const CTRL  = 1 << 0;
 const META  = 1 << 1;
 const ALT   = 1 << 2;
@@ -417,17 +419,7 @@ export class Keyboard {
   targetCanReceiveTextInput(target) {
     if (!target) { return false; }
 
-    switch (target.nodeName && target.nodeName.toLowerCase()) {
-      case 'input':
-        let type = target.type;
-        return !(type === 'hidden' || type === 'radio' || type === 'checkbox');
-
-      case 'textarea':
-        return true;
-
-      default:
-        return false;
-    }
+    return isEditable(target);
   }
 }
 
