@@ -18,7 +18,7 @@ function captureEvents(element, body) {
       events.push(e);
     }
   };
-  ['keydown', 'keypress', 'keyup', 'textInput'].forEach(function(type) {
+  ['keydown', 'keypress', 'keyup', 'textInput', 'input'].forEach(function(type) {
     addEventHandler(element, type, handler);
   });
   body();
@@ -181,7 +181,7 @@ describe('Keyboard', function() {
           input = document.createElement('input');
         });
 
-        it('dispatches keydown, keypress, textInput, and keyup', function() {
+        it('dispatches keydown, keypress, textInput, input, and keyup', function() {
           // Simulate typing 'a'.
           assert.deepEqual(captureEventSummaries(input, function() {
             var keyboard = new Keyboard({ 97: a }, {});
@@ -190,6 +190,7 @@ describe('Keyboard', function() {
             ['keydown', 0, 97],
             ['keypress', 97, 97],
             ['textInput', undefined, undefined],
+            ['input', undefined, undefined],
             ['keyup', 0, 97]
           ]);
         });
@@ -222,6 +223,20 @@ describe('Keyboard', function() {
             ['keydown', 0, 16],
             ['keyup', 0, 16]
           ]);
+        });
+
+        context('when the keystroke will delete a character', function() {
+          it('dispatches keydown, input and keyup', function() {
+            // Simulate pressing the BACKSPACE key itself.
+            assert.deepEqual(captureEventSummaries(input, function() {
+              var keyboard = new Keyboard({}, { BACKSPACE: 8 });
+              keyboard.dispatchEventsForKeystroke(new Keystroke(0, 8), input);
+            }), [
+              ['keydown', 0, 8],
+              ['input', undefined, undefined],
+              ['keyup', 0, 8]
+            ]);
+          });
         });
       });
 
@@ -271,7 +286,7 @@ describe('Keyboard', function() {
       });
 
       context('when the keystroke will input a character', function() {
-        it('dispatches keydown, keypress, textInput, and keyup', function() {
+        it('dispatches keydown, keypress, textInput, input, and keyup', function() {
           // Simulate typing 'A'.
           assert.deepEqual(captureEventSummaries(input, function() {
             var keyboard = new Keyboard({ 65: A }, { SHIFT: 16 });
@@ -284,6 +299,7 @@ describe('Keyboard', function() {
             ['keydown', 0, 97],
             ['keypress', 65, 65],
             ['textInput', undefined, undefined],
+            ['input', undefined, undefined],
             ['keyup', 0, 97],
 
             // shift key
@@ -312,18 +328,21 @@ describe('Keyboard', function() {
         ['keydown', 0, 65],
         ['keypress', 97, 97],
         ['textInput', undefined, undefined],
+        ['input', undefined, undefined],
         ['keyup', 0, 65],
 
         // b
         ['keydown', 0, 66],
         ['keypress', 98, 98],
         ['textInput', undefined, undefined],
+        ['input', undefined, undefined],
         ['keyup', 0, 66],
 
         // c
         ['keydown', 0, 67],
         ['keypress', 99, 99],
         ['textInput', undefined, undefined],
+        ['input', undefined, undefined],
         ['keyup', 0, 67]
       ]);
     });
@@ -340,12 +359,14 @@ describe('Keyboard', function() {
         ['keydown', 0, 65],
         ['keypress', 65, 65],
         ['textInput', undefined, undefined],
+        ['input', undefined, undefined],
         ['keyup', 0, 65],
 
         // B
         ['keydown', 0, 66],
         ['keypress', 66, 66],
         ['textInput', undefined, undefined],
+        ['input', undefined, undefined],
         ['keyup', 0, 66],
 
         // shift
@@ -355,6 +376,7 @@ describe('Keyboard', function() {
         ['keydown', 0, 67],
         ['keypress', 99, 99],
         ['textInput', undefined, undefined],
+        ['input', undefined, undefined],
         ['keyup', 0, 67]
       ]);
     });
@@ -396,6 +418,7 @@ describe('Keyboard', function() {
 
         // backspace
         ['keydown', 0, 8],
+        ['input', undefined, undefined],
         ['keyup', 0, 8],
 
         // alt up

@@ -99,7 +99,7 @@ export class Keyboard {
   /**
    * Creates an event ready for dispatching onto the given target.
    *
-   * @param {string} type One of "keydown", "keypress", "keyup", or "textInput".
+   * @param {string} type One of "keydown", "keypress", "keyup", "textInput" or "input".
    * @param {Keystroke} keystroke
    * @param {HTMLElement} target
    * @return {Event}
@@ -121,6 +121,7 @@ export class Keyboard {
 
     switch (type) {
       case 'textInput':
+      case 'input':
         event.data = String.fromCharCode(this.charCodeForKeystroke(keystroke));
         break;
 
@@ -178,6 +179,7 @@ export class Keyboard {
    *   keydown   keyCode=65 (A)     charCode=0      shiftKey=true
    *   keypress  keyCode=65 (A)     charCode=65 (A) shiftKey=true
    *   textInput data=A
+   *   input data=A
    *   keyup     keyCode=65 (A)     charCode=0      shiftKey=true
    *   keyup     keyCode=16 (SHIFT) charCode=0      shiftKey=false
    *
@@ -219,6 +221,14 @@ export class Keyboard {
         if (events & KeyEvents.INPUT) {
           const textinputEvent = this.createEventFromKeystroke('textInput', keystroke, target);
           target.dispatchEvent(textinputEvent);
+          const inputEvent = this.createEventFromKeystroke('input', keystroke, target);
+          target.dispatchEvent(inputEvent);
+        }
+      }
+      if (keystroke.keyCode === US_ENGLISH_ACTION_KEYCODE_MAP.BACKSPACE) {
+        if (events & KeyEvents.INPUT) {
+          const inputEvent = this.createEventFromKeystroke('input', keystroke, target);
+          target.dispatchEvent(inputEvent);
         }
       }
     }
