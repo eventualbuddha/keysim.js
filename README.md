@@ -78,33 +78,33 @@ keyboard.dispatchEventsForKeystroke(ctrl_shift_enter, input);
 keydown  keyCode=72  (H)   which=72  (H)   charCode=0        
 keypress keyCode=104 (h)   which=104 (h)   charCode=104 (h)  
 textInput data=h
-input data=h
+input
 keyup    keyCode=72  (H)   which=72  (H)   charCode=0        
 keydown  keyCode=69  (E)   which=69  (E)   charCode=0        
 keypress keyCode=101 (e)   which=101 (e)   charCode=101 (e)  
 textInput data=e
-input data=e
+input
 keyup    keyCode=69  (E)   which=69  (E)   charCode=0        
 keydown  keyCode=76  (L)   which=76  (L)   charCode=0        
 keypress keyCode=108 (l)   which=108 (l)   charCode=108 (l)  
 textInput data=l
-input data=l
+input
 keyup    keyCode=76  (L)   which=76  (L)   charCode=0        
 keydown  keyCode=76  (L)   which=76  (L)   charCode=0        
 keypress keyCode=108 (l)   which=108 (l)   charCode=108 (l)  
 textInput data=l
-input data=l
+input
 keyup    keyCode=76  (L)   which=76  (L)   charCode=0        
 keydown  keyCode=79  (O)   which=79  (O)   charCode=0        
 keypress keyCode=111 (o)   which=111 (o)   charCode=111 (o)  
 textInput data=o
-input data=o
+input
 keyup    keyCode=79  (O)   which=79  (O)   charCode=0        
 keydown  keyCode=16        which=16        charCode=0        
 keydown  keyCode=49  (1)   which=49  (1)   charCode=0        
 keypress keyCode=33  (!)   which=33  (!)   charCode=33  (!)  
 textInput data=!
-input data=!
+input
 keyup    keyCode=49  (1)   which=49  (1)   charCode=0        
 keyup    keyCode=16        which=16        charCode=0        
 keydown  keyCode=91  ([)   which=91  ([)   charCode=0        

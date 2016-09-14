@@ -121,7 +121,6 @@ export class Keyboard {
 
     switch (type) {
       case 'textInput':
-      case 'input':
         event.data = String.fromCharCode(this.charCodeForKeystroke(keystroke));
         break;
 
@@ -179,7 +178,7 @@ export class Keyboard {
    *   keydown   keyCode=65 (A)     charCode=0      shiftKey=true
    *   keypress  keyCode=65 (A)     charCode=65 (A) shiftKey=true
    *   textInput data=A
-   *   input data=A
+   *   input
    *   keyup     keyCode=65 (A)     charCode=0      shiftKey=true
    *   keyup     keyCode=16 (SHIFT) charCode=0      shiftKey=false
    *
