@@ -358,6 +358,12 @@ describe('Keyboard', function() {
         ['keyup', 0, 67]
       ]);
     });
+
+    it('causes the input to update the value based on the dispatched events', function() {
+      var keyboard = Keyboard.US_ENGLISH;
+      keyboard.dispatchEventsForInput('ABc', input);
+      assert.strictEqual(input.value, 'ABc');
+    })
   });
 
   describe('#dispatchEventsForAction', function() {
