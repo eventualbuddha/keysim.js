@@ -1,5 +1,7 @@
 # keysim.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/eventualbuddha/keysim.js.svg)](https://greenkeeper.io/)
+
 Simulate typing into DOM elements. This can be used anywhere you need to
 simulate user keystrokes, but is particularly useful in testing environments.
 
