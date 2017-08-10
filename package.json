@@ -1,6 +1,7 @@
 {
   "name": "keysim",
   "description": "Keyboard simulator for JavaScript.",
+  "version": "2.1.0",
   "main": "dist/keysim.js",
   "jsnext:main": "dist/keysim.mjs",
   "directories": {
