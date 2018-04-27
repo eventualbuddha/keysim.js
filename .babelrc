@@ -1,4 +1,4 @@
 {
-  "presets": ["es2015"],
+  "presets": ["env"],
   "plugins": ["syntax-class-properties", "transform-class-properties"]
 }
