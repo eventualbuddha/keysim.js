@@ -482,6 +482,8 @@ const US_ENGLISH_CHARCODE_KEYCODE_MAP = {
   91:  new Keystroke(0,     219), // [
   92:  new Keystroke(0,     220), // \
   93:  new Keystroke(0,     221), // ]
+  94:  new Keystroke(SHIFT,  54), // ^
+  95:  new Keystroke(SHIFT, 189), // _
   96:  new Keystroke(0,     192), // `
   97:  new Keystroke(0,     65),  // a
   98:  new Keystroke(0,     66),  // b
