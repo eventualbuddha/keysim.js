@@ -1,7 +1,9 @@
 /* eslint-env node */
 
 module.exports = function(config) {
-  const isCI = !!process.env.CI;
+  const browsers = process.env.BROWSERS
+    ? process.env.BROWSERS.split(',')
+    : ['Chrome', 'Firefox'];
 
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -54,7 +56,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [isCI ? 'Firefox' : 'Chrome'],
+    browsers,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
