@@ -1,24 +1,42 @@
+/* eslint-env node */
+
 import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
 import nodeResolve from 'rollup-plugin-node-resolve';
 
 var pkg = require('./package.json');
 
 export default {
-  entry: 'src/keysim.js',
+  input: 'src/keysim.js',
   plugins: [
-    babel(babelrc()),
+    babel({
+      babelrc: false,
+      presets: [
+        [
+          'env',
+          {
+            targets: {
+              node: 6,
+              browsers: ['>0.25%', 'not ie 11', 'not op_mini all']
+            },
+            modules: false
+          }
+        ]
+      ],
+      plugins: ['syntax-class-properties', 'transform-class-properties']
+    }),
     nodeResolve({ jsnext: true })
   ],
-  targets: [
+  output: [
     {
       format: 'es',
-      dest: pkg['jsnext:main']
+      sourcemap: true,
+      file: pkg['module']
     },
     {
       format: 'umd',
-      dest: pkg['main'],
-      moduleName: 'Keysim'
+      sourcemap: true,
+      file: pkg['main'],
+      name: 'Keysim'
     }
   ]
 };

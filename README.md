@@ -8,29 +8,30 @@ simulate user keystrokes, but is particularly useful in testing environments.
 ## Installation
 
 ```sh
-# Install via npm to use with a web or node (e.g. with jsdom) project.
+# Install via yarn.
+$ yarn add [--dev] keysim
+# Install via npm.
 $ npm install [--save-dev] keysim
 # Install by copying the dist file.
-$ git clone https://github.com/eventualbuddha/keysim.js.git
-$ cp keysim.js/dist/keysim.js path/to/vendor/keysim.js
+$ curl -o path/to/vendor/keysim.js https://unpkg.com/keysim@latest/dist/keysim.js
 ```
 
 ## Usage
 
 There are two high-level methods for simulating keystrokes on a DOM element, one
 for typing input into an element and one for typing non-input "action"
-keystrokes. *Note that none of the methods provided by keysim will trigger the
+keystrokes. _Note that none of the methods provided by keysim will trigger the
 browser's default behavior, such as inserting text or moving the cursor. It only
-allows you to test your event handling code by sending the correct DOM events.*
+allows you to test your event handling code by sending the correct DOM events._
 
 ### Entering Text
 
 Get a standard keyboard and use it to fire events onto a DOM element:
 
 ```js
-let input = document.getElementById('name');
+let input = document.getElementById("name");
 let keyboard = Keysim.Keyboard.US_ENGLISH;
-keyboard.dispatchEventsForInput('hello!', input);
+keyboard.dispatchEventsForInput("hello!", input);
 ```
 
 This will fire events `keydown`, `keypress`, `keyup`, and `textInput` events
@@ -46,10 +47,10 @@ cause input. For example, here's how to simulate backward deleting a word and
 selecting all text in the input:
 
 ```js
-let input = document.getElementById('name');
+let input = document.getElementById("name");
 let keyboard = Keysim.Keyboard.US_ENGLISH;
-keyboard.dispatchEventsForAction('alt+backspace', input);
-keyboard.dispatchEventsForAction(`${osx ? 'meta' : 'ctrl'}+a`, input);
+keyboard.dispatchEventsForAction("alt+backspace", input);
+keyboard.dispatchEventsForAction(`${osx ? "meta" : "ctrl"}+a`, input);
 ```
 
 ### Raw Keystroke Dispatch
@@ -58,9 +59,8 @@ If you need to dispatch events for an exact sequence of keystrokes you may use
 `Keyboard#dispatchEventsForKeystroke`, which is used by both
 `Keyboard#dispatchEventsForInput` and `Keyboard#dispatchEventsForAction`.
 
-
 ```js
-let input = document.getElementById('name');
+let input = document.getElementById("name");
 let keyboard = Keysim.Keyboard.US_ENGLISH;
 let ctrl_shift_enter = new Keysim.Keystroke(
   Keysim.Keystroke.CTRL | Keysim.Keystroke.SHIFT,
@@ -75,44 +75,44 @@ keyboard.dispatchEventsForKeystroke(ctrl_shift_enter, input);
 (as reported by [this page](http://unixpapa.com/js/testkey.html)):
 
 ```
-keydown  keyCode=72  (H)   which=72  (H)   charCode=0        
+keydown  keyCode=72  (H)   which=72  (H)   charCode=0
 keypress keyCode=104 (h)   which=104 (h)   charCode=104 (h)  
 textInput data=h
-keyup    keyCode=72  (H)   which=72  (H)   charCode=0        
-keydown  keyCode=69  (E)   which=69  (E)   charCode=0        
+keyup    keyCode=72  (H)   which=72  (H)   charCode=0
+keydown  keyCode=69  (E)   which=69  (E)   charCode=0
 keypress keyCode=101 (e)   which=101 (e)   charCode=101 (e)  
 textInput data=e
-keyup    keyCode=69  (E)   which=69  (E)   charCode=0        
-keydown  keyCode=76  (L)   which=76  (L)   charCode=0        
+keyup    keyCode=69  (E)   which=69  (E)   charCode=0
+keydown  keyCode=76  (L)   which=76  (L)   charCode=0
 keypress keyCode=108 (l)   which=108 (l)   charCode=108 (l)  
 textInput data=l
-keyup    keyCode=76  (L)   which=76  (L)   charCode=0        
-keydown  keyCode=76  (L)   which=76  (L)   charCode=0        
+keyup    keyCode=76  (L)   which=76  (L)   charCode=0
+keydown  keyCode=76  (L)   which=76  (L)   charCode=0
 keypress keyCode=108 (l)   which=108 (l)   charCode=108 (l)  
 textInput data=l
-keyup    keyCode=76  (L)   which=76  (L)   charCode=0        
-keydown  keyCode=79  (O)   which=79  (O)   charCode=0        
+keyup    keyCode=76  (L)   which=76  (L)   charCode=0
+keydown  keyCode=79  (O)   which=79  (O)   charCode=0
 keypress keyCode=111 (o)   which=111 (o)   charCode=111 (o)  
 textInput data=o
-keyup    keyCode=79  (O)   which=79  (O)   charCode=0        
-keydown  keyCode=16        which=16        charCode=0        
-keydown  keyCode=49  (1)   which=49  (1)   charCode=0        
+keyup    keyCode=79  (O)   which=79  (O)   charCode=0
+keydown  keyCode=16        which=16        charCode=0
+keydown  keyCode=49  (1)   which=49  (1)   charCode=0
 keypress keyCode=33  (!)   which=33  (!)   charCode=33  (!)  
 textInput data=!
-keyup    keyCode=49  (1)   which=49  (1)   charCode=0        
-keyup    keyCode=16        which=16        charCode=0        
-keydown  keyCode=91  ([)   which=91  ([)   charCode=0        
+keyup    keyCode=49  (1)   which=49  (1)   charCode=0
+keyup    keyCode=16        which=16        charCode=0
+keydown  keyCode=91  ([)   which=91  ([)   charCode=0
 ```
 
 ## Building
 
-Ensure that the keysim dependencies are installed (`npm install`). Then run
-`npm run build` to re-create `dist/keysim.js`.
+Ensure that the keysim dependencies are installed (`yarn install`). Then run
+`yarn build` to re-create `dist/keysim.js`.
 
 ## Testing
 
-To run the tests in Chrome, run `npm run test:browser`. To run the tests in node,
-run `npm run test:node`. Running `npm test` will run both.
+To run the tests in Chrome, run `yarn test:browser`. To run the tests in node,
+run `yarn test:node`. Running `yarn test` will run both.
 
 ## Contributing
 
