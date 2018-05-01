@@ -62,6 +62,10 @@ export class Keystroke {
 }
 
 /**
+ * @typedef {"keydown" | "keypress" | "keyup" | "textInput" | "input"} KeyEventsName
+ */
+
+/**
  * Simulates a keyboard with a particular key-to-character and key-to-action
  * mapping. Use `US_ENGLISH` to get a pre-configured keyboard.
  */
@@ -100,7 +104,7 @@ export class Keyboard {
   /**
    * Creates an event ready for dispatching onto the given target.
    *
-   * @param {string} type One of "keydown", "keypress", "keyup", or "textInput".
+   * @param {KeyEventsName} type
    * @param {Keystroke} keystroke
    * @param {HTMLElement} target
    * @return {Event}
@@ -122,6 +126,7 @@ export class Keyboard {
 
     switch (type) {
       case 'textInput':
+      case 'input':
         event.data = String.fromCharCode(this.charCodeForKeystroke(keystroke));
         break;
 
@@ -188,6 +193,7 @@ export class Keyboard {
    *   keydown   keyCode=65 (A)     charCode=0      shiftKey=true
    *   keypress  keyCode=65 (A)     charCode=65 (A) shiftKey=true
    *   textInput data=A
+   *   input     data=A
    *   keyup     keyCode=65 (A)     charCode=0      shiftKey=true
    *   keyup     keyCode=16 (SHIFT) charCode=0      shiftKey=false
    *
@@ -259,6 +265,13 @@ export class Keyboard {
             target
           );
           target.dispatchEvent(textinputEvent);
+
+          const inputEvent = this.createEventFromKeystroke(
+            'input',
+            keystroke,
+            target
+          );
+          target.dispatchEvent(inputEvent);
         }
       }
     }
