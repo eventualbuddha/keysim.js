@@ -20,9 +20,9 @@ $ curl -o path/to/vendor/keysim.js https://unpkg.com/keysim@latest/dist/keysim.j
 
 There are two high-level methods for simulating keystrokes on a DOM element, one
 for typing input into an element and one for typing non-input "action"
-keystrokes. _Note that none of the methods provided by keysim will trigger the
+keystrokes. **Note that none of the methods provided by keysim will trigger the
 browser's default behavior, such as inserting text or moving the cursor. It only
-allows you to test your event handling code by sending the correct DOM events._
+allows you to test your event handling code by sending the correct DOM events.**
 
 ### Entering Text
 
