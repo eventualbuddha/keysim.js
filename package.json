@@ -13,13 +13,13 @@
   },
   "scripts": {
     "lint": "eslint src test && prettier-check src/**/*.js test/**/*.js",
-    "prebuild": "yarn lint",
+    "prebuild": "npm run lint",
     "build": "rollup -c",
-    "pretest": "yarn build",
-    "test": "yarn test:node && yarn test:browser",
+    "pretest": "npm run build",
+    "test": "npm run test:node && npm run test:browser",
     "test:browser": "./node_modules/karma/bin/karma start karma.conf.js",
     "test:node": "mocha",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
