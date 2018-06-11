@@ -491,6 +491,9 @@ export class Keyboard {
 }
 
 const US_ENGLISH_CHARCODE_KEYCODE_MAP = {
+  8: new Keystroke(0, 8), // <backspace>
+  13: new Keystroke(0, 13), // <enter>
+  27: new Keystroke(0, 27), // <escape>
   32: new Keystroke(0, 32), // <space>
   33: new Keystroke(SHIFT, 49), // !
   34: new Keystroke(SHIFT, 222), // "
