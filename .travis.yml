@@ -20,7 +20,9 @@ matrix:
       env: TEST_TYPE=test:browser BROWSERS=Firefox MOZ_HEADLESS=1
     - node_js: 6
       env: TEST_TYPE=test:browser BROWSERS=Firefox MOZ_HEADLESS=1
-script: yarn build && yarn $TEST_TYPE
+script:
+  - '[ "$TRAVIS_EVENT_TYPE" != cron ] || yarn install --no-lockfile'
+  - yarn build && yarn $TEST_TYPE
 cache: yarn
 branches:
   except:
