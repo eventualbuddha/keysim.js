@@ -104,6 +104,8 @@ keyup    keyCode=16        which=16        charCode=0
 keydown  keyCode=91  ([)   which=91  ([)   charCode=0
 ```
 
+Check out this demo page [here](http://jsbin.com/tujidubile/edit?html,output).
+
 ## Building
 
 Ensure that the keysim dependencies are installed (`yarn install`). Then run
