@@ -172,13 +172,15 @@ export class Keyboard {
     let currentModifierState = 0;
     for (let i = 0, length = input.length; i < length; i++) {
       const keystroke = this.keystrokeForCharCode(input.charCodeAt(i));
-      this.dispatchModifierStateTransition(
-        target,
-        currentModifierState,
-        keystroke.modifiers
-      );
-      this.dispatchEventsForKeystroke(keystroke, target, false);
-      currentModifierState = keystroke.modifiers;
+      if (keystroke) {
+        this.dispatchModifierStateTransition(
+          target,
+          currentModifierState,
+          keystroke.modifiers
+        );
+        this.dispatchEventsForKeystroke(keystroke, target, false);
+        currentModifierState = keystroke.modifiers;
+      }
     }
     this.dispatchModifierStateTransition(target, currentModifierState, 0);
   }
@@ -491,6 +493,7 @@ export class Keyboard {
 }
 
 const US_ENGLISH_CHARCODE_KEYCODE_MAP = {
+  10: new Keystroke(0, 13), // <enter>
   32: new Keystroke(0, 32), // <space>
   33: new Keystroke(SHIFT, 49), // !
   34: new Keystroke(SHIFT, 222), // "

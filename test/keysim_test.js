@@ -371,6 +371,65 @@ describe('Keyboard', function() {
       );
     });
 
+    it('dispatches events for new line characters', function() {
+      assert.deepEqual(
+        captureEventSummaries(input, () => {
+          let keyboard = Keyboard.US_ENGLISH;
+          keyboard.dispatchEventsForInput('a\nc', input);
+        }),
+        [
+          // a
+          ['keydown', 0, 65],
+          ['keypress', 97, 97],
+          ['textInput', undefined, undefined],
+          ['input', undefined, undefined],
+          ['keyup', 0, 65],
+
+          // enter
+          ['keydown', 0, 13],
+          ['keypress', 10, 10],
+          ['textInput', undefined, undefined],
+          ['input', undefined, undefined],
+          ['keyup', 0, 13],
+
+          // c
+          ['keydown', 0, 67],
+          ['keypress', 99, 99],
+          ['textInput', undefined, undefined],
+          ['input', undefined, undefined],
+          ['keyup', 0, 67]
+        ]
+      );
+      assert.deepEqual(
+        captureEventSummaries(input, () => {
+          let keyboard = Keyboard.US_ENGLISH;
+          keyboard.dispatchEventsForInput('a\r\nc', input);
+        }),
+        [
+          // a
+          ['keydown', 0, 65],
+          ['keypress', 97, 97],
+          ['textInput', undefined, undefined],
+          ['input', undefined, undefined],
+          ['keyup', 0, 65],
+
+          // enter
+          ['keydown', 0, 13],
+          ['keypress', 10, 10],
+          ['textInput', undefined, undefined],
+          ['input', undefined, undefined],
+          ['keyup', 0, 13],
+
+          // c
+          ['keydown', 0, 67],
+          ['keypress', 99, 99],
+          ['textInput', undefined, undefined],
+          ['input', undefined, undefined],
+          ['keyup', 0, 67]
+        ]
+      );
+    });
+
     it('coalesces modifier key events when succeeding keypresses use those modifiers', function() {
       assert.deepEqual(
         captureEventSummaries(input, () => {
