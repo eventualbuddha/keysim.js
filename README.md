@@ -8,10 +8,10 @@ simulate user keystrokes, but is particularly useful in testing environments.
 ## Installation
 
 ```sh
-# Install via yarn.
-$ yarn add [--dev] keysim
 # Install via npm.
 $ npm install [--save-dev] keysim
+# Install via yarn.
+$ yarn add [--dev] keysim
 # Install by copying the dist file.
 $ curl -o path/to/vendor/keysim.js https://unpkg.com/keysim@latest/dist/keysim.js
 ```
@@ -108,13 +108,13 @@ Check out this demo page [here](http://jsbin.com/tujidubile/edit?html,output).
 
 ## Building
 
-Ensure that the keysim dependencies are installed (`yarn install`). Then run
-`yarn build` to re-create `dist/keysim.js`.
+Ensure that the keysim dependencies are installed (`npm install`). Then run
+`npm run build` to re-create `dist/keysim.js`.
 
 ## Testing
 
-To run the tests in Chrome, run `yarn test:browser`. To run the tests in node,
-run `yarn test:node`. Running `yarn test` will run both.
+To run the tests in Chrome, run `npm run test:browser`. To run the tests in node,
+run `npm run test:node`. Running `npm test` will run both.
 
 ## Contributing
 
