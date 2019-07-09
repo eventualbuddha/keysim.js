@@ -13,13 +13,13 @@
   },
   "scripts": {
     "lint": "eslint src test && prettier-check src/**/*.js test/**/*.js",
-    "prebuild": "yarn lint",
+    "prebuild": "npm run lint",
     "build": "rollup -c",
-    "pretest": "yarn build",
-    "test": "yarn test:node && yarn test:browser",
+    "pretest": "npm run build",
+    "test": "npm run test:node && npm run test:browser",
     "test:browser": "./node_modules/karma/bin/karma start karma.conf.js",
     "test:node": "mocha",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
@@ -45,7 +45,7 @@
     "dom-element-is-natively-editable": "^1.0.4",
     "eslint": "^4.19.1",
     "jsdom": "^11.9.0",
-    "karma": "^2.0.2",
+    "karma": "^4.1.0",
     "karma-browserify": "^5.2.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-firefox-launcher": "^1.1.0",
@@ -56,6 +56,6 @@
     "rollup": "^0.60.7",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-node-resolve": "^3.3.0",
-    "watchify": "^3.11.0"
+    "watchify": "^3.11.1"
   }
 }

@@ -21,9 +21,8 @@ matrix:
     - node_js: 6
       env: TEST_TYPE=test:browser BROWSERS=Firefox MOZ_HEADLESS=1
 script:
-  - '[ "$TRAVIS_EVENT_TYPE" != cron ] || yarn install --no-lockfile'
-  - yarn build && yarn $TEST_TYPE
-cache: yarn
+  - '[ "$TRAVIS_EVENT_TYPE" != cron ] || npm ci'
+  - npm run build && npm run $TEST_TYPE
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
@@ -34,6 +33,6 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: 'yarn install && yarn build && npx semantic-release'
+        script: 'npm install && npm run build && npx semantic-release'
         on:
           branch: master
