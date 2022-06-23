@@ -44,7 +44,7 @@
     "detect-node": "^2.0.3",
     "dom-element-is-natively-editable": "^1.0.4",
     "eslint": "^4.19.1",
-    "jsdom": "^11.9.0",
+    "jsdom": "^16.5.0",
     "karma": "^4.1.0",
     "karma-browserify": "^5.2.0",
     "karma-chrome-launcher": "^2.2.0",
